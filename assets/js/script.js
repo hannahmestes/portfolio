@@ -6,7 +6,6 @@
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
 
-
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
@@ -119,3 +118,18 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// random avatar on load
+const avatars = ["./assets/images/avatar.png",
+                "./assets/images/avatar-1.png", 
+                "./assets/images/avatar-2.png", 
+                "./assets/images/avatar-3.png", 
+                "./assets/images/avatar-4.png"];
+
+const randomIndex = Math.floor(Math.random() * avatars.length);
+document.getElementById("avatar").src = avatars[randomIndex];
+
+
+
+
+                
