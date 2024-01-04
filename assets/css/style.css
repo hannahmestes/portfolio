@@ -116,7 +116,7 @@ a { text-decoration: none; }
 
 li { list-style: none; }
 
-img, ion-icon, a, button, time, span { display: block; }
+img, a, button, time, span { display: block; }
 
 button {
   font: inherit;
@@ -531,7 +531,7 @@ main {
   margin-bottom: 10px; 
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 35px;
   color: var(--orange-yellow-crayola);
 }
 
@@ -759,6 +759,13 @@ main {
 \*-----------------------------------*/
 
 .article-title { margin-bottom: 30px; }
+
+.resume-link{
+  margin-bottom: 30px; 
+  color: var(--orange-yellow-crayola);
+  font-size: var(--fs-7);
+  font-style: normal;
+}
 
 
 /**
