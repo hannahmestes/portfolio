@@ -19,10 +19,10 @@ Phoenix, Arizona, USA
 
 # navbar
 
-About
-Resume
-Portfolio
-Contact
+about
+resume
+portfolio
+contact
 
 # about
 
