@@ -1345,6 +1345,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .avatar-box { border-radius: 30px; }
 
+  .avatar-img { 
+    border-radius: 30px;
+    height: 120;
+  }
+
   .avatar-box img { width: 120px; }
 
   .info-content .name { margin-bottom: 15px; }
