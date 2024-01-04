@@ -41,7 +41,7 @@
   /* --border-gradient-onyx:hsl(240, 0%, 25%); */
   --text-gradient-yellow: linear-gradient(
     to right, 
-    hsl(294, 25%, 35%), 
+    hsl(294, 32%, 38%), 
     hsl(294, 32%, 45%)
   );
 
@@ -1350,6 +1350,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   .avatar-box { border-radius: 30px; }
 
   .avatar-img { 
+    border: 0px;
     border-radius: 30px;
     height: 120;
   }
