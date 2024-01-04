@@ -519,6 +519,9 @@ main {
   background: var(--border-gradient-onyx);
   padding: 20px;
   border-radius: 14px;
+  display: flex;
+  gap: 18px;
+
   /* box-shadow: var(--shadow-2); */
   z-index: 1;
 }
@@ -534,10 +537,10 @@ main {
 
 .service-icon-box { 
   margin-bottom: 10px; 
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   font-size: 40px;
-  width: 40px;
+  /* width: 40px; */
   color: var(--orange-yellow-crayola);
 }
 
@@ -986,11 +989,9 @@ main {
 .project-item-icon-box {
   --scale: 0.8;
 
-  /* width: 60px; */
-  height: 60px;
   background: var(--jet);
   color: var(--orange-yellow-crayola);
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(var(--scale));
@@ -1414,8 +1415,9 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .service-icon-box {
-    /* margin-bottom: 0; */
+    margin-bottom: 0;
     margin-top: 0px;
+
   }
 
   .service-content-box { text-align: left; }
