@@ -155,7 +155,7 @@ body { background: var(--smoky-black); }
 .sidebar,
 article {
   background: var(--eerie-black-2);
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 20px;
   padding: 15px;
   /* box-shadow: var(--shadow-1); */
@@ -448,7 +448,7 @@ main {
   width: 100%;
   background: hsla(240, 1%, 17%, 0.75);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 12px 12px 0 0;
   /* box-shadow: var(--shadow-2); */
   z-index: 5;
@@ -654,7 +654,7 @@ main {
   position: relative;
   padding: 15px;
   margin: 15px 12px;
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 14px;
   /* box-shadow: var(--shadow-5); */
   transform: scale(1.2);
@@ -891,7 +891,7 @@ main {
   align-items: center;
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 14px;
   font-size: var(--fs-6);
   font-weight: var(--fw-300);
@@ -905,7 +905,7 @@ main {
   top: calc(100% + 6px);
   width: 100%;
   padding: 6px;
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 14px;
   z-index: 2;
   opacity: 0;
@@ -1129,7 +1129,7 @@ main {
   width: 100%;
   border-radius: 16px;
   margin-bottom: 30px;
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   overflow: hidden;
 }
 
@@ -1158,7 +1158,7 @@ main {
   font-size: var(--fs-6);
   font-weight: var(--fw-400);
   padding: 13px 20px;
-  border: 1px solid var(--jet);
+  /* border: 1px solid var(--jet); */
   border-radius: 14px;
   outline: none;
 }
