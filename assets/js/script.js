@@ -130,6 +130,22 @@ const avatars = ["./assets/images/avatar.png",
 const randomIndex = Math.floor(Math.random() * avatars.length);
 document.getElementById("avatar").src = avatars[randomIndex];
 
+// open up sections based on URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const pageParam = urlParams.get('page');
+if (pageParam) {
+  for (let i = 0; i < pages.length; i++) {
+    if (pages[i].dataset.page === pageParam) {
+      pages[i].classList.add("active");
+      navigationLinks[i].classList.add("active");
+      window.scrollTo(0, 0);
+    } else {
+      pages[i].classList.remove("active");
+      navigationLinks[i].classList.remove("active");
+    }
+  }
+}
+
 
 
 
