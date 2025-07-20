@@ -27,19 +27,19 @@
   --bg-gradient-onyx:hsl(240, 0%, 30%);
 
   --bg-gradient-jet:hsl(240, 2%, 15%);
-  --bg-gradient-yellow-1: linear-gradient(
+  --bg-gradient-purple-1: linear-gradient(
     to bottom right, 
     hsl(294, 32%, 48%) 0%, 
     hsla(36, 100%, 69%, 0) 50%
   );
-  --bg-gradient-yellow-2:linear-gradient(
+  --bg-gradient-purple-2:linear-gradient(
     to bottom right, 
     hsl(294, 32%, 48%) 0%, 
     hsl(294, 40%, 30%) 50%
   );;
   --border-gradient-onyx:hsla(240, 0%, 15%, 0);
   /* --border-gradient-onyx:hsl(240, 0%, 25%); */
-  --text-gradient-yellow: linear-gradient(
+  --text-gradient-purple: linear-gradient(
     to right, 
     hsl(294, 32%, 38%), 
     hsl(294, 32%, 45%)
@@ -54,8 +54,7 @@
   --smoky-black: hsl(0, 0%, 7%);
   --white-1: hsl(0, 0%, 100%);
   --white-2: hsl(0, 0%, 98%);
-  --orange-yellow-crayola: hsl(294, 32%, 48%);
-  --vegas-gold: hsl(294, 32%, 48%);
+  --purple: hsl(294, 32%, 48%);
   --light-gray: hsl(0, 0%, 84%);
   --light-gray-70: hsla(0, 0%, 84%, 0.7);
   --bittersweet-shimmer: hsl(0, 43%, 51%);
@@ -138,11 +137,11 @@ input, textarea {
 }
 
 ::selection {
-  background: var(--orange-yellow-crayola);
+  background: var(--purple);
   color: var(--smoky-black);
 }
 
-:focus { outline-color: var(--orange-yellow-crayola); }
+:focus { outline-color: var(--purple); }
 
 html { font-family: var(--ff-poppins); }
 
@@ -183,7 +182,7 @@ article {
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
   /* box-shadow: var(--shadow-1); */
   z-index: 1;
 }
@@ -242,7 +241,7 @@ article.active {
   left: 0;
   width: 30px;
   height: 3px;
-  background: var(--text-gradient-yellow);
+  background: var(--text-gradient-purple);
   border-radius: 3px;
 }
 
@@ -257,7 +256,7 @@ article.active {
 }
 
 .has-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--orange-yellow-crayola);
+  background: var(--purple);
   border-radius: 5px;
 }
 
@@ -282,9 +281,6 @@ article.active {
   border-radius: inherit;
   z-index: -1;
 }
-
-
-
 
 
 /*-----------------------------------*\
@@ -323,7 +319,7 @@ main {
 }
 
 .avatar-box {
-  background: var(--bg-gradient-yellow-2);
+  background: var(--bg-gradient-purple-2);
   border: 0px;
   border-radius: 20px;
 }
@@ -352,7 +348,7 @@ main {
   right: -15px;
   border-radius: 0 15px;
   font-size: 13px;
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
   background: var(--border-gradient-onyx);
   padding: 10px;
   /* box-shadow: var(--shadow-1); */
@@ -371,10 +367,10 @@ main {
 }
 
 .info_more-btn:hover,
-.info_more-btn:focus { background: var(--bg-gradient-yellow-1); }
+.info_more-btn:focus { background: var(--bg-gradient-purple-1); }
 
 .info_more-btn:hover::before,
-.info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
+.info_more-btn:focus::before { background: var(--bg-gradient-purple-2); }
 
 .info_more-btn span { display: none; }
 
@@ -477,7 +473,7 @@ main {
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
-.navbar-link.active { color: var(--orange-yellow-crayola); }
+.navbar-link.active { color: var(--purple); }
 
 
 
@@ -541,7 +537,7 @@ main {
   align-items: center;
   font-size: 40px;
   /* width: 40px; */
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
 }
 
 .service-icon-box img { margin: auto; }
@@ -771,7 +767,7 @@ main {
 
 .resume-link{
   margin-bottom: 30px; 
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
   font-size: var(--fs-7);
   font-style: normal;
 }
@@ -806,7 +802,7 @@ main {
 }
 
 .timeline-list span {
-  color: var(--vegas-gold);
+  color: var(--purple);
   font-weight: var(--fw-400);
   line-height: 1.6;
 }
@@ -828,7 +824,7 @@ main {
   left: -33px;
   height: 6px;
   width: 6px;
-  background: var(--text-gradient-yellow);
+  background: var(--text-gradient-purple);
   border-radius: 50%;
   box-shadow: 0 0 0 50% var(--jet);
 }
@@ -872,7 +868,7 @@ main {
 }
 
 .skill-progress-fill {
-  background: var(--text-gradient-yellow);
+  background: var(--text-gradient-purple);
   height: 100%;
   border-radius: inherit;
 }
@@ -990,7 +986,7 @@ main {
   --scale: 0.8;
 
   background: var(--jet);
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1082,9 +1078,11 @@ main {
   height: 100%;
   object-fit: cover;
   transition: var(--transition-1);
+  cursor: pointer;
 }
 
-.blog-post-item > a:hover .blog-banner-box img { transform: scale(1.1); }
+
+a:hover .blog-banner-box img { transform: scale(1.1); }
 
 .blog-content { padding: 15px; }
 
@@ -1115,7 +1113,7 @@ main {
   transition: var(--transition-1);
 }
 
-.blog-post-item > a:hover .blog-item-title { color: var(--orange-yellow-crayola); }
+.blog-post-item > a:hover .blog-item-title { color: var(--purple); }
 
 .blog-text {
   color: var(--light-gray);
@@ -1174,7 +1172,7 @@ main {
 
 .form-input::placeholder { font-weight: var(--fw-500); }
 
-.form-input:focus { border-color: var(--orange-yellow-crayola); }
+.form-input:focus { border-color: var(--purple); }
 
 textarea.form-input {
   min-height: 100px;
@@ -1192,7 +1190,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   position: relative;
   width: 100%;
   background: var(--border-gradient-onyx);
-  color: var(--orange-yellow-crayola);
+  color: var(--purple);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1218,9 +1216,9 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .form-btn ion-icon { font-size: 16px; }
 
-.form-btn:hover { background: var(--bg-gradient-yellow-1); }
+.form-btn:hover { background: var(--bg-gradient-purple-1); }
 
-.form-btn:hover::before { background: var(--bg-gradient-yellow-2); }
+.form-btn:hover::before { background: var(--bg-gradient-purple-2); }
 
 .form-btn:disabled {
   opacity: 0.7;
@@ -1637,7 +1635,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .filter-item button:hover { color: var(--light-gray-70); }
 
-  .filter-item button.active { color: var(--orange-yellow-crayola); }
+  .filter-item button.active { color: var(--purple); }
 
   /* portfolio and blog grid */
 
