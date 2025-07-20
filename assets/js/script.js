@@ -89,6 +89,7 @@ document.querySelectorAll('.blog-banner-box img').forEach(img => {
     overlay.style.alignItems = 'center';
     overlay.style.justifyContent = 'center';
     overlay.style.zIndex = 10000;
+    
 
     // Create full-size image
     const fullImg = document.createElement('img');
@@ -96,6 +97,7 @@ document.querySelectorAll('.blog-banner-box img').forEach(img => {
     fullImg.style.maxWidth = '90vw';
     fullImg.style.maxHeight = '90vh';
     fullImg.style.boxShadow = '0 0 20px #000';
+    fullImg.style.borderRadius = '16px';
 
     // Close on click
     overlay.addEventListener('click', function () {
