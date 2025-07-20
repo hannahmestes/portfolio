@@ -74,28 +74,38 @@ for (let i = 0; i < filterBtn.length; i++) {
 
 }
 
+// Popover for full-size blog banner image
+document.querySelectorAll('.blog-banner-box img').forEach(img => {
+  img.addEventListener('click', function () {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.background = 'rgba(0,0,0,0.8)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = 10000;
 
+    // Create full-size image
+    const fullImg = document.createElement('img');
+    fullImg.src = img.src;
+    fullImg.style.maxWidth = '90vw';
+    fullImg.style.maxHeight = '90vh';
+    fullImg.style.boxShadow = '0 0 20px #000';
 
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
+    // Close on click
+    overlay.addEventListener('click', function () {
+      document.body.removeChild(overlay);
+    });
 
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
+    overlay.appendChild(fullImg);
+    document.body.appendChild(overlay);
   });
-}
-
-
+});
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
