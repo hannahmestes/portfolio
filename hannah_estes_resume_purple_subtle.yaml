@@ -1,0 +1,199 @@
+template: resume_with_bars_readable
+
+full_name: Hannah Estes
+
+# Address
+address:
+  - Phoenix, Arizona
+
+phone: +1 480-298-5039
+email: hannahwritescode@gmail.com
+linkedin: hannahmestes
+
+# To allow multilanguage
+titles:
+  contact: Contact
+  certification: Certifications
+  expertise: Expertise
+  programming: Programming
+  keyskills: Key Skills
+  awards: Awards & Recognition
+  experience: Work History
+
+# Professional Summary (used as description in resume_base.html)
+description: |
+  Developer specializing in immersive narrative experiences and spatial computing applications.
+  Proven track record delivering award-winning AR/VR projects from concept through mobile and standalone deployment.
+
+# High-level competencies
+keyskills:
+  - Spatial Computing & XR Development
+  - Immersive Storytelling
+  - Volumetric Video Integration
+  - Mobile Applications
+  - Cross-Platform Development
+  - AI Agent Systems
+  - Automated Testing
+  - Technical Communication
+
+# Tools & Expertise (XR & 3D Development)
+expertise:
+  - Unity XR
+  - ARKit & ARCore
+  - Meta XR
+  - VisionOS
+  - Mixed Reality Capture
+  - Volumetric Video Integration
+  - Media Optimization
+  - 3D Performance Optimization
+  - iOS Development (Swift/SwiftUI)
+  - App Store Distribution
+
+# Awards & Recognition
+awards:
+  - 2025 Telly Award for Volumetric Capture Craft - 1906
+  - SXSW 2025 Official Selection - 1906
+  - SXSW 2025 Official Selection - The Choice (Chapters 2&3)
+  - Canadian Screen Award Nomination 2023 - The Choice (Chapter 1)
+  - SXSW 2022 Audience Award - The Choice (Chapter 1)
+  - 2022 Games for Change Best XR for Change Experience - The Choice (Chapter 1)
+
+# Programming Languages
+programming:
+  - C#
+  - Swift
+  - JavaScript, TypeScript
+  - HTML, CSS
+
+body:
+
+  Work History:
+    -
+      start: 2025
+      end: Current
+      title: Mobile Developer
+      company: EHMA Fintech
+      description: |
+        - Research and develop AI agent systems for direct-to-consumer solar sales applications
+        - Build AI-powered sales agent leveraging natural language processing and machine learning
+        - Integrate advanced AI capabilities into mobile fintech applications for enhanced customer engagement
+        - *Currently in early development phase building next-generation AI sales platform*
+    -
+      start: 2024
+      end: 2025
+      title: Lead Developer
+      company: Harbinger Creative
+      description: |
+        - Provide technical consultation and leadership for educational XR experiences and AI-powered learning platforms
+        - Developed "Vizulingo" - Unity mobile application combining AI learning assistants with XR features for English language learning
+        - Integrated ChatGPT API to provide real-time feedback for students completing job training
+        - *Currently in pilot phase with early users testing the educational platform*
+    -
+      start: 2021
+      end: 2024
+      title: Lead Developer
+      company: Baltu Technologies
+      description: |
+        - Led development of Superdoc, Unity-based knowledge-sharing platform for iPad with multimedia sharing and capture (text, image, video, audio, 3D models)
+        - Developed several VR applications for Meta Quest including aerospace facility simulation for Fortune 500 client
+        - Created workforce exploration VR application for Maricopa Community Colleges in partnership with Intel and Boeing, allowing students to experience simulated job activities
+        - Designed and implemented automated testing suite using AltUnityTester, Appium, and Cucumber
+        - Established formalized testing process reducing need for manual testing across development team
+        - Planned and led all scrum ceremonies, delegating tasks across internal teams and contractors, 7+ people at times.
+    -
+      start: 2015
+      end: 2021
+      title: iOS Developer & XR Research Intern
+      company: State Farm
+      description: |
+        **Production Development (2020-2021)**:
+        - Developed social iOS application integrating Alexa voice services, real-time communication, and wellness monitoring for senior care market
+        - Implemented accessibility features and responsive design for iPad and iPhone
+        - Conducted research related to gig economy driving and designed systems for better educating and studying gig drivers.
+
+        **XR Research & Development (2015-2019)**:
+        - Implemented core functional features for experimental VR training applications, including an in-game handheld camera and scoring system
+        - Developed LIV integration pipeline for Unity applications enabling green screen compositing in OBS
+        - Created mixed reality capture workflow allowing development team to easily record demonstrations of prototypes
+
+  Projects:
+    -
+      start: 2024
+      end: 2025
+      title: 1906 Atlanta Race Massacre
+      company: Emblematic Group
+      description: |
+        - Completed development of '1906' AR documentary for iOS/Android for National Center for Civil and Human Rights
+        - Overhauled application architecture and developed key features including  interactable maps and historical artifacts and accessibility considerations
+        - Integrated deepfake videos, mocap animations, Quill art with volumetric video recorded at Metastage
+        - Selected for premiere at SXSW 2025
+    -
+      start: 2020
+      end: 2025
+      title: The Choice
+      company: Infinite Frame Media
+      description: |
+        - Developed VR documentary experience incorporating a novel volumetric video system and animated Quill illustrations
+        - Designed and implemented flexible event framework using Unity's visual scripting system
+        - Optimized video loading and playback system for hiqh-quality volumetric videos on Quest 1
+        - Created intuitive narrative flow management system for creative partners
+        - Chapter 1 available on Meta App Store
+
+  Education:
+    -
+      start:  2016
+      end:  2019
+      title: Bachelor of Science in Computer Science, Summa cum laude
+      company: Texas Tech University
+      description: Highest Ranking Graduate, 4.0/4.0 GPA
+
+  Patents:
+    -
+      start: ""
+      end: 2024
+      title: Systems and Methods of Gig-Economy Fleet Mobilization
+      company: US-20240182600-A1
+      description: Hannah Estes et al. (State Farm) - Novel system for automatic detection and optimization of gig-economy fleet operations through advanced data processing algorithms
+
+config:
+  # Subtle purple color scheme with lavender-grey sidebar
+  theme_color: "#6B5B95"  # Less purple, more muted
+  sidebar_color: "#F3F2F7"  # Muted lavender-grey background
+  bar_background_color: "#E9ECEF"  # Light gray for bars
+  date2_color: "#495057"  # Medium gray for secondary text
+
+  # Sizes
+  padding: 10
+  body_padding_top: 8
+  second_page_spacing: 8  # Extra spacing at top of second page
+  projects_spacing: 10  # Extra spacing before Projects section
+  awards_spacing: 20  # Extra spacing before Awards section
+  page_width: 216
+  page_height: 279
+
+  sidebar_width: 60
+  sidebar_padding_top: 5
+  profile_image_padding_bottom: 0
+
+  h2_padding_left: 4
+  h3_padding_top: 3
+  date_container_width: 13
+  date_container_padding_left: 0
+  description_container_padding_left: 3
+
+  # Frame for previewing
+  frame_padding: 10
+  frame_color: "#94A3B8"
+
+  # Cover letter paddings
+  cover_padding_top: 10
+  cover_padding_bottom: 20
+  cover_padding_h: 25
+
+  # Section heading icon layout customization
+  section_icon_circle_size: "7.8mm"
+  section_icon_circle_x_offset: "-0.5mm"
+  section_icon_design_size: "4mm"
+  section_icon_design_x_offset: "-0.1mm"
+  section_icon_design_y_offset: "-0.6mm"
+  section_heading_text_margin: "-5mm"
