@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hannah OS</title>
+  <title>Hannah Estes - XR Developer | Software Engineer Portfolio</title>
   <meta name="description" content="Hannah Estes - Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI. 8+ years building immersive experiences. SXSW award-winning developer." />
   <meta name="keywords" content="XR Developer, VR Developer, AR Developer, Unity Developer, iOS Developer, Hannah Estes, Spatial Computing, Metaverse, Virtual Reality, Augmented Reality" />
   <meta name="author" content="Hannah Estes" />
@@ -14,6 +14,8 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Hannah Estes – XR Developer & Software Engineer" />
   <meta name="twitter:description" content="Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI." />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icon.png">
+  <link rel="apple-touch-icon" href="assets/images/icon.png">
 
   <!-- Windows 98–inspired Styling -->
   <style>
@@ -237,14 +239,19 @@
     }
 
     .controls button {
-      width: 16px;
-      height: 14px;
-      padding: 14px;
-      font-size: 10px;
+      width: 20px;
+      height: 18px;
+      padding: 0;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1;
       background: var(--window-bg);
       border: 2px solid var(--border-dark);
       box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .window-content {
@@ -418,6 +425,7 @@
       align-items: center;
       padding: 4px 4px 4px 4px;
       gap: 4px;
+      z-index: 99999;
     }
 
     #start {
@@ -723,6 +731,7 @@
         max-height: calc(100vh - 40px);
         max-width: none;
         transform: none !important;
+        display: none;
       }
 
       .window.active {
@@ -798,9 +807,36 @@
         margin: 0 auto;
       }
 
+      .tarot-card-back {
+        font-size: 12px;
+      }
+
+      .tarot-card-back h4 {
+        font-size: 16px;
+      }
+
+      .tarot-card-back p {
+        font-size: 14px;
+      }
+
+      .tarot-card-back li {
+        font-size: 14px;
+      }
+
+      .tarot-card-back b {
+        font-size: 14px;
+      }
+
+      .tarot-card-back i {
+        font-size: 13px;
+      }
+
       #projects {
         width: 100% !important;
         max-height: calc(100vh - 40px);
+      }
+
+      #projects.active {
         display: flex !important;
         flex-direction: column;
       }
@@ -879,27 +915,27 @@
 
   <div id="desktop">
     <div class="icon" data-window="readme">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='8' y='4' width='48' height='56' fill='%23fff' stroke='%23000' stroke-width='2'/><rect x='12' y='8' width='40' height='4' fill='%236b5b95'/><line x1='12' y1='18' x2='48' y2='18' stroke='%23000' stroke-width='1'/><line x1='12' y1='24' x2='48' y2='24' stroke='%23000' stroke-width='1'/><line x1='12' y1='30' x2='40' y2='30' stroke='%23000' stroke-width='1'/><line x1='12' y1='36' x2='44' y2='36' stroke='%23000' stroke-width='1'/><line x1='12' y1='42' x2='36' y2='42' stroke='%23000' stroke-width='1'/></svg>" />
+      <img src="assets/images/icons/readme.png" alt="README" />
       <span>README.txt</span>
     </div>
 
     <div class="icon" data-window="about">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='12' y='8' width='40' height='52' rx='4' fill='%23f0e6ff' stroke='%234a2c7a' stroke-width='3'/><rect x='16' y='12' width='32' height='40' fill='%236b5b95' stroke='%234a2c7a' stroke-width='2'/><line x1='20' y1='20' x2='44' y2='20' stroke='%23f0e6ff' stroke-width='2'/><line x1='20' y1='28' x2='44' y2='28' stroke='%23f0e6ff' stroke-width='2'/><line x1='20' y1='36' x2='44' y2='36' stroke='%23f0e6ff' stroke-width='2'/><circle cx='32' cy='44' r='2' fill='%239d8dc4'/></svg>" />
+      <img src="assets/images/icons/about_me.png" alt="About Me" />
       <span>About Me</span>
     </div>
 
     <div class="icon" data-window="projects">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><path d='M4 20h24l4-8h28v40H4z' fill='%239d8dc4' stroke='%23000' stroke-width='2'/><path d='M8 24h32l2-4h20v32H8z' fill='%236b5b95' stroke='%234a2c7a' stroke-width='1'/></svg>" />
+      <img src="assets/images/icons/projects.png" alt="Projects" />
       <span>Projects</span>
     </div>
 
     <div class="icon" data-window="contact">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='12' width='56' height='40' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><path d='M4 12l28 20 28-20' stroke='%234a2c7a' fill='none' stroke-width='3'/></svg>" />
+      <img src="assets/images/icons/contact.png" alt="Contact" />
       <span>Contact</span>
     </div>
 
     <div class="icon" data-window="resume">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='8' y='4' width='48' height='56' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><line x1='16' y1='16' x2='48' y2='16' stroke='%236b5b95' stroke-width='3'/><line x1='16' y1='28' x2='48' y2='28' stroke='%236b5b95' stroke-width='3'/><line x1='16' y1='40' x2='40' y2='40' stroke='%236b5b95' stroke-width='3'/></svg>" />
+      <img src="assets/images/icons/resume.png" alt="Resume" />
       <span>Resume</span>
     </div>
 
@@ -909,7 +945,7 @@
     </div>
 
     <div class="icon" data-window="gallery">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='8' width='56' height='40' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><circle cx='20' cy='24' r='6' fill='%236b5b95'/><path d='M12 40l12-12 8 8 12-12 8 16z' fill='%239d8dc4' stroke='%234a2c7a' stroke-width='2'/></svg>" />
+      <img src="assets/images/icons/gallery.png" alt="Gallery" />
       <span>Gallery</span>
     </div>
 
@@ -941,9 +977,17 @@
         <p style="margin:8px 0 4px 0;"><b>GET IN TOUCH</b></p>
         <p style="margin:4px 0;">Email: <a href="mailto:hannahwritescode@gmail.com" style="color:#6b5b95;">hannahwritescode@gmail.com</a></p>
         <p style="margin:4px 0;">LinkedIn: <a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" style="color:#6b5b95;">linkedin.com/in/hannahmestes</a></p>
+        <p style="margin:4px 0;">GitHub: <a href="https://github.com/hannahmestes" target="_blank" style="color:#6b5b95;">github.com/hannahmestes</a></p>
+        <p style="margin:4px 0;">Download Resume: <a href="hannah_estes_resume.pdf" target="_blank" style="color:#6b5b95;">PDF</a></p>
+
+        <p style="margin:8px 0 4px 0;"><b>ACKNOWLEDGEMENTS</b></p>
+        <p style="margin:4px 0;">• Desktop icons: Designed by me, based on Windows 98 icons</p>
+        <p style="margin:4px 0;">• Tarot card art: Vectorium (Canva)</p>
+        <p style="margin:4px 0;">• Card designs by me</p>
+        <p style="margin:4px 0;">• Card flip sound: Alexander (OrangeFreeSounds)</p>
 
         <p style="margin:8px 0 0 0;">═══════════════════════════════════════════════════════</p>
-        <p style="margin:4px 0; color:#808080;">Click icons on desktop to explore</p>
+        <p style="margin:4px 0; color:#808080;">Click desktop icons to explore more →</p>
       </div>
     </div>
 
@@ -1319,7 +1363,7 @@
                 </tr>
               </table>
               <p style="margin:8px 0; font-size:11px;"><b>Mobile app and Alexa skill helping older adults live independently while staying connected.</b> Sundial enables aging in place by connecting seniors with their "Care Circle" of family and friends.</p>
-              <p style="margin:8px 0; font-size:11px;"><b>Led efforts to introduce an iPad version and build a custom mobile experience for the senior.</p>
+              <p style="margin:8px 0; font-size:11px;">Led efforts to introduce an iPad version and build a custom mobile experience for the senior.</p>
               <p style="margin:8px 0; font-size:11px;">Features daily activities and reminders, photo sharing with personalized captions to Echo Show, care circle coordination, and check-ins. Simple interface designed for users who aren't tech-savvy.</p>
               <p style="margin:4px 0; font-size:11px;">Addresses demographic shift: by 2030, 1 in 5 U.S. residents will be retirement age, and 3 out of 4 older adults want to stay in their homes.</p>
               <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#6b5b95;">Press Release →</a></p>
@@ -1595,7 +1639,7 @@
     });
 
     // Close button handler using event delegation
-    document.addEventListener('click', (e) => {
+    const handleClose = (e) => {
       const btn = e.target.closest('[data-close]');
       if (!btn) return;
       e.preventDefault();
@@ -1608,7 +1652,9 @@
         const task = document.querySelector(`.task[data-win="${win.id}"]`);
         if (task) task.remove();
       }
-    });
+    };
+    document.addEventListener('click', handleClose);
+    document.addEventListener('touchend', handleClose);
 
     document.querySelectorAll('.title-bar').forEach(bar => {
       const win = bar.parentElement;
