@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hannah Estes – XR Developer & Software Engineer</title>
+  <title>Hannah OS</title>
   <meta name="description" content="Hannah Estes - Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI. 8+ years building immersive experiences. SXSW award-winning developer." />
   <meta name="keywords" content="XR Developer, VR Developer, AR Developer, Unity Developer, iOS Developer, Hannah Estes, Spatial Computing, Metaverse, Virtual Reality, Augmented Reality" />
   <meta name="author" content="Hannah Estes" />
@@ -239,12 +239,12 @@
     .controls button {
       width: 16px;
       height: 14px;
-      padding: 0;
+      padding: 14px;
       font-size: 10px;
       background: var(--window-bg);
       border: 2px solid var(--border-dark);
       box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
-      cursor: default;
+      cursor: pointer;
     }
 
     .window-content {
@@ -719,26 +719,139 @@
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
-        height: calc(100% - 40px);
+        height: auto;
+        max-height: calc(100vh - 40px);
         max-width: none;
+        transform: none !important;
+      }
+
+      .window.active {
+        display: flex !important;
+        flex-direction: column;
+      }
+
+      .window-content {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .controls button {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0;
+        color: transparent;
+        z-index: 9999;
+      }
+
+      .controls button::after {
+        content: "×";
+        font-size: 24px;
+        line-height: 1;
+        font-weight: bold;
+        color: #000;
       }
 
       .pdf-frame-wrapper {
-        height: calc(100% - 80px);
+        height: 60vh;
+      }
+
+      #about {
+        width: 100% !important;
+        max-height: calc(100vh - 40px);
+      }
+
+      .card-game-table {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .card-spread {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 15px;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+      }
+
+      .card-spread::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .card-spread::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.1);
+      }
+
+      .card-spread::-webkit-scrollbar-thumb {
+        background: rgba(107, 91, 149, 0.5);
+        border-radius: 4px;
+      }
+
+      .tarot-card {
+        width: 100%;
+        max-width: 280px;
+        height: 504px;
+        margin: 0 auto;
       }
 
       #projects {
         width: 100% !important;
-        height: calc(100% - 60px);
+        max-height: calc(100vh - 40px);
+        display: flex !important;
+        flex-direction: column;
       }
 
       .explorer {
-        height: calc(100% - 80px);
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        max-height: calc(100vh - 120px);
+      }
+
+      .explorer-sidebar {
+        border-right: none;
+        border-bottom: 2px inset var(--border-mid);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 8px;
+        overflow-x: auto;
+        flex-shrink: 0;
+      }
+
+      .project-folder {
+        flex-shrink: 0;
+        padding: 6px 10px;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .explorer-files {
+        overflow-y: auto;
+        padding: 8px;
       }
 
       .project-detail {
         max-height: none;
-        height: 100%;
+        height: auto;
+      }
+
+      .project-detail table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      .project-detail img {
+        max-width: 100%;
+        height: auto !important;
+      }
+
+      .project-detail h3 {
+        font-size: 13px;
       }
 
       .gallery-grid {
@@ -814,6 +927,7 @@
         <p style="margin:8px 0 4px 0;"><b>QUICK SUMMARY</b></p>
         <p style="margin:4px 0;">8+ years building VR/AR, mobile, and web applications.</p>
         <p style="margin:4px 0;">Specialized in immersive experiences and spatial computing.</p>
+        <p style="margin:4px 0;">Currently working on Agentic AI Sales Systems</p>
         <p style="margin:4px 0;">Based in Phoenix, AZ • Open to relocation</p>
 
         <p style="margin:8px 0 4px 0;"><b>KEY HIGHLIGHTS</b></p>
@@ -821,8 +935,8 @@
         <p style="margin:4px 0;">• SXSW 2022 Audience Award - The Choice VR</p>
         <p style="margin:4px 0;">• US Patent Holder (Gig-Economy Fleet Systems)</p>
 
-        <p style="margin:8px 0 4px 0;"><b>TECHNICAL FOCUS</b></p>
-        <p style="margin:4px 0;">Unity XR • iOS (Swift) • Agentic AI • Automated Testing</p>
+        <p style="margin:8px 0 4px 0;"><b>TECHNICAL STRENGTHS</b></p>
+        <p style="margin:4px 0;">Unity XR • Cross-Platform Mobile Development • Agentic AI • Automated Testing</p>
 
         <p style="margin:8px 0 4px 0;"><b>GET IN TOUCH</b></p>
         <p style="margin:4px 0;">Email: <a href="mailto:hannahwritescode@gmail.com" style="color:#6b5b95;">hannahwritescode@gmail.com</a></p>
@@ -854,7 +968,7 @@
                 <div class="tarot-card-back">
                   <h4>The Seeker</h4>
                   <p><b>Hi! I'm Hannah.</b> I'm a software developer with 8+ years of experience creating VR, mobile, and web applications.</p>
-                  <p>I love creating immersive apps with purpose and playing with the latest XR toys and spatial computing technologies.</p>
+                  <p>I'm obsessed with studying and augmenting how humans learn and share information- whether thats through creating AR experiences that teach about historical events, designing chatbots that educate consumers about power grid reliability, or developing VR training programs.</p>
                   <p>When I'm not at the computer, you can find me taking classes at the arts center or enjoying live music in Phoenix.</p>
                 </div>
               </div>
@@ -869,16 +983,17 @@
                 <div class="tarot-card-back">
                   <h4>The Professional</h4>
                   <p><b>Mobile Developer</b> @ EHMA Fintech<br><i>2025 — Current</i></p>
-                  <p>Research & develop AI agent systems for solar sales</p>
+                  <p>Research & develop AI agent systems for battery sales and customer education</p>
                   <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
                   <p><b>Lead Developer</b> @ Harbinger Creative<br><i>2024 — 2025</i></p>
                   <p>Developed Vizulingo - AI learning platform with XR features</p>
                   <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
                   <p><b>Lead Developer</b> @ Baltu Technologies<br><i>2021 — 2024</i></p>
-                  <p>Led SuperDoc development, VR training apps, automated testing</p>
+                  <p>Led SuperDoc training platform development, developed VR career exploration app with Boeing and Intel for Maricopa Community Colleges</p>
                   <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
                   <p><b>iOS/XR Intern</b> @ State Farm<br><i>2015 — 2021</i></p>
-                  <p>Social iOS app, VR training, LIV integration</p>
+                  <p>Developed the iOS app for Sundial, an experiment in Senior Care. Filmed, edited, and animated educational videos for user research purposes.</p>
+                  <p>Designed and developed key features for a VR agent training application. </p>
                 </div>
               </div>
             </div>
@@ -893,13 +1008,13 @@
                   <h4>The Developer</h4>
                   <p><b>Core Expertise:</b></p>
                   <ul>
-                    <li><b>XR Development</b> - 5+ years (Unity, ARKit/ARCore, Meta XR, VisionOS)</li>
+                    <li><b>XR Development</b> - 6+ years (Unity, ARKit/ARCore, Meta XR, VisionOS)</li>
                     <li><b>Mobile Development</b> - 5+ years (iOS with Swift/SwiftUI, cross-platform)</li>
-                    <li><b>Agentic AI</b> - 2 years building intelligent agents</li>
+                    <li><b>Agentic AI</b> - 2 years building intelligent agents for education & sales</li>
                     <li><b>Automated Testing</b> - 3 years (Appium, Cucumber, AltUnityTester)</li>
                   </ul>
                   <p style="margin-top:8px;"><b>Languages & Tools:</b> C#, Swift, JavaScript/TypeScript, HTML/CSS</p>
-                  <p style="margin-top:4px;"><b>Specialties:</b> Volumetric video integration, media optimization, 3D performance, App Store distribution</p>
+                  <p style="margin-top:4px;"><b>Specialties:</b> Spatial media, media optimization, App distribution</p>
                 </div>
               </div>
             </div>
@@ -920,6 +1035,7 @@
                     <li>Canadian Screen Award Nominee 2023</li>
                     <li>SXSW 2022 Audience Award - The Choice</li>
                     <li>Games for Change 2022 Best XR Experience</li>
+                    <li>Texas Tech- Highest Ranking Graduate 2019</li>
                   </ul>
                 </div>
               </div>
@@ -937,7 +1053,7 @@
                   <p><b>US-20240182600-A1</b></p>
                   <p style="margin-top:8px;"><i>Systems and Methods of Gig-Economy Fleet Mobilization</i></p>
                   <p style="margin-top:8px;">Novel system for automatic detection and optimization of gig-economy fleet operations through advanced data processing algorithms.</p>
-                  <p style="margin-top:8px;"><b>Holders:</b> Hannah Estes et al.<br><b>Assignee:</b> State Farm</p>
+                  <p style="margin-top:8px;"><b>Inventors:</b> Hannah Estes et al.<br><b>Assignee:</b> State Farm</p>
                 </div>
               </div>
             </div>
@@ -952,9 +1068,11 @@
                   <h4>The Student</h4>
                   <p><b>Texas Tech University</b><br><i>2016 — 2019</i></p>
                   <p>Bachelor of Science in Computer Science</p>
-                  <p><b>Summa cum laude</b></p>
+                  <p><i>Summa cum laude</i></p>
                   <p>Highest Ranking Graduate</p>
                   <p style="margin-top:8px; font-size:9px; color:#808080;">4.0 GPA</p>
+                  <p><b>University of Nicosia</b><br><i>2018</i></p>
+                  <p>Semester in Europe</p>
                 </div>
               </div>
             </div>
@@ -1054,7 +1172,7 @@
             </div>
             <div class="project-folder" data-project="sfvr">
               <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
-              SF Agent VR
+              SF Agent Training VR
             </div>
           </div>
           <div class="explorer-files project-content">
@@ -1076,8 +1194,8 @@
                   <td colspan="2">AR • iOS/Android</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;"><b>AR documentary for the National Center for Civil and Human Rights.</b> An immersive location-based experience bringing one of the most violent incidents in Atlanta's history to life through augmented reality on mobile devices.</p>
-              <p style="margin:8px 0; font-size:11px;">Features interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video captured at Metastage. Allows visitors to the museum to experience history through cutting-edge XR technology.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>AR documentary for the National Center for Civil and Human Rights.</b> An immersive experience bringing one of the most violent incidents in Atlanta's history to life through augmented reality on mobile devices.</p>
+              <p style="margin:8px 0; font-size:11px;">Features interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video captured at Metastage. Allows visitors to the museum or viewers at hime to experience history through cutting-edge XR technology.</p>
               <p style="margin:4px 0; font-size:11px;"><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#6b5b95;">SXSW 2025 Official Selection →</a></p>
               <p style="margin:8px 0; font-size:11px;"><b>Links & Press:</b></p>
               <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt35543783/" target="_blank" style="color:#6b5b95;">IMDb</a></p>
@@ -1133,7 +1251,7 @@
                   <td colspan="2">Mobile • XR • AI</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;"><b>Mobile-first immersive learning platform teaching job skills through storytelling.</b> Designed to build confidence in healthcare, hospitality, and tech sectors without requiring VR headsets or classrooms.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Mobile-first immersive learning platform teaching job and language skills through storytelling.</b> Designed to build confidence in healthcare, hospitality, and tech sectors without requiring VR headsets or classrooms.</p>
               <p style="margin:8px 0; font-size:11px;">Features story-based learning with mobile simulations (hospital room, front desk scenarios), AI-powered content, and bite-sized practice sessions. Content reviewed by real educators and built by former NASA engineers.</p>
               <p style="margin:4px 0; font-size:11px;">Addresses critical workforce gaps: 700K annual healthcare job vacancies, 75% hospitality turnover, 60% ESL student dropout rate.</p>
               <p style="margin:4px 0; font-size:11px;"><a href="https://vizulingo.com" target="_blank" style="color:#6b5b95;">vizulingo.com →</a></p>
@@ -1201,6 +1319,7 @@
                 </tr>
               </table>
               <p style="margin:8px 0; font-size:11px;"><b>Mobile app and Alexa skill helping older adults live independently while staying connected.</b> Sundial enables aging in place by connecting seniors with their "Care Circle" of family and friends.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Led efforts to introduce an iPad version and build a custom mobile experience for the senior.</p>
               <p style="margin:8px 0; font-size:11px;">Features daily activities and reminders, photo sharing with personalized captions to Echo Show, care circle coordination, and check-ins. Simple interface designed for users who aren't tech-savvy.</p>
               <p style="margin:4px 0; font-size:11px;">Addresses demographic shift: by 2030, 1 in 5 U.S. residents will be retirement age, and 3 out of 4 older adults want to stay in their homes.</p>
               <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#6b5b95;">Press Release →</a></p>
@@ -1223,9 +1342,8 @@
                   <td colspan="2">VR • Windows MR</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;"><b>Pioneering VR training and innovation initiatives at State Farm.</b> Part of State Farm's technology exploration in their 100th year, developing immersive experiences for training agents.</p>
-              <p style="margin:8px 0; font-size:11px;">Projects included VR for small business insurance quoting, in-game handheld camera system, scoring mechanics, and LIV integration pipeline for green screen compositing in OBS.</p>
-              <p style="margin:4px 0; font-size:11px;">Also conducted research on gig economy driving systems and developed automated integration test suite for customer authentication.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Pioneering VR training and innovation initiatives at State Farm.</b></p>
+              <p style="margin:8px 0; font-size:11px;">Contributions to the training system for small business insurance quoting include an in-game handheld camera system, scoring mechanics, and LIV integration pipeline for green screen compositing in OBS.</p>
               <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#6b5b95;">Press Release →</a></p>
             </div>
           </div>
@@ -1476,13 +1594,20 @@
       });
     });
 
-    document.querySelectorAll('[data-close]').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const win = e.target.closest('.window');
+    // Close button handler using event delegation
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-close]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const win = btn.closest('.window');
+      if (win) {
+        win.classList.remove('active');
+        win.classList.add('inactive');
         win.style.display = 'none';
         const task = document.querySelector(`.task[data-win="${win.id}"]`);
         if (task) task.remove();
-      });
+      }
     });
 
     document.querySelectorAll('.title-bar').forEach(bar => {
@@ -1577,15 +1702,14 @@
 
     // ===== Auto-open README on load for recruiter visibility =====
     window.addEventListener('DOMContentLoaded', () => {
-      const readme = document.getElementById('readme');
-      if (readme) {
-        readme.style.display = 'block';
-        addTask(readme);
-        focusWindow(readme);
-        // Position in center of screen
-        readme.style.left = '50%';
-        readme.style.top = '50%';
-        readme.style.transform = 'translate(-50%, -50%)';
+      // Only auto-open on desktop, not mobile
+      if (window.innerWidth > 600) {
+        const readme = document.getElementById('readme');
+        if (readme) {
+          readme.style.display = 'block';
+          addTask(readme);
+          focusWindow(readme);
+        }
       }
     });
   </script>
