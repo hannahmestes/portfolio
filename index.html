@@ -780,8 +780,15 @@
         color: #000;
       }
 
+      #resume.active {
+        display: flex !important;
+        flex-direction: column;
+      }
+
       .pdf-frame-wrapper {
-        height: 85vh;
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
       }
 
       #about {
