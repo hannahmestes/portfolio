@@ -942,6 +942,8 @@
         grid-template-columns: repeat(2, 1fr);
         max-height: none;
         overflow-y: auto;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
       }
 
       #gallery.active .window-content {
@@ -953,7 +955,8 @@
       }
 
       .gallery-item {
-        padding: 0;
+        padding: 4px;
+        touch-action: manipulation;
       }
 
       .gallery-item img {
@@ -1626,14 +1629,24 @@
       win.style.zIndex = zCounter;
     }
 
-    // Add click handler to windows so tapping inactive windows brings them to focus
-    document.querySelectorAll('.window').forEach(win => {
-      win.addEventListener('click', (e) => {
-        // Don't focus if clicking on controls or interactive elements
-        if (e.target.closest('.controls, .tool-btn, button, a, input, .tarot-card')) return;
-        focusWindow(win);
-      });
-    });
+    // Add click/touch handler to windows so tapping inactive windows brings them to focus
+    const handleWindowFocus = (e) => {
+      // Find closest window if clicked/tapped inside one
+      const win = e.target.closest('.window');
+      if (!win) return;
+
+      // Don't focus if clicking on controls or interactive elements that have their own handlers
+      if (e.target.closest('.controls, .tool-btn, button, a, input, .tarot-card')) return;
+
+      // For project folders, don't focus (they have their own handler)
+      if (e.target.closest('.project-folder')) return;
+
+      // Note: gallery items are now included - taps will open images, swipes will focus window
+      focusWindow(win);
+    };
+
+    document.addEventListener('click', handleWindowFocus);
+    document.addEventListener('touchend', handleWindowFocus);
 
     function addTask(win) {
       if (document.querySelector(`.task[data-win="${win.id}"]`)) return;
@@ -1711,12 +1724,7 @@
     let imageViewerCount = 0;
     const openImageViewers = {}; // Track open images by source
 
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const imgSrc = item.getAttribute('data-img');
-        const imgTitle = item.getAttribute('data-title');
-
+    function openImageViewer(item, imgSrc, imgTitle) {
         // Check if image is already open
         if (openImageViewers[imgSrc] && document.body.contains(openImageViewers[imgSrc])) {
           // Focus existing window instead of opening new one
@@ -1823,6 +1831,38 @@
           if (!isMobile) offsetWindowPosition(viewer);
         };
         tempImg.src = imgSrc;
+    }
+
+    // Attach event listeners to gallery items
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      item.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      item.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const diffX = Math.abs(touchEndX - touchStartX);
+        const diffY = Math.abs(touchEndY - touchStartY);
+
+        // Only open image if it was a tap (not a swipe) - movement less than 10px
+        if (diffX < 10 && diffY < 10) {
+          const imgSrc = item.getAttribute('data-img');
+          const imgTitle = item.getAttribute('data-title');
+          openImageViewer(item, imgSrc, imgTitle);
+        }
+      });
+
+      item.addEventListener('click', (e) => {
+        // On desktop, or if touchend didn't handle it
+        e.stopPropagation();
+        const imgSrc = item.getAttribute('data-img');
+        const imgTitle = item.getAttribute('data-title');
+        openImageViewer(item, imgSrc, imgTitle);
       });
     });
 
