@@ -3,20 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hannah Estes – Portfolio OS</title>
+  <title>Hannah Estes – XR Developer & Software Engineer</title>
+  <meta name="description" content="Hannah Estes - Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI. 8+ years building immersive experiences. SXSW award-winning developer." />
+  <meta name="keywords" content="XR Developer, VR Developer, AR Developer, Unity Developer, iOS Developer, Hannah Estes, Spatial Computing, Metaverse, Virtual Reality, Augmented Reality" />
+  <meta name="author" content="Hannah Estes" />
+  <meta property="og:title" content="Hannah Estes – XR Developer & Software Engineer" />
+  <meta property="og:description" content="Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI. SXSW award-winning developer." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hannahestes.dev" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hannah Estes – XR Developer & Software Engineer" />
+  <meta name="twitter:description" content="Software Developer specializing in XR, VR/AR, mobile apps, and agentic AI." />
 
   <!-- Windows 98–inspired Styling -->
   <style>
     :root {
-      --bg: #008080;
+      --bg: #2d1b4e;
       --window-bg: #c0c0c0;
       --border-dark: #404040;
       --border-light: #ffffff;
       --border-mid: #808080;
-      --title-active: #000080;
+      --title-active: #4a2c7a;
       --title-inactive: #808080;
       --text: #000000;
       --taskbar: #c0c0c0;
+      --accent-purple: #6b5b95;
+      --accent-lavender: #9d8dc4;
     }
 
     * { box-sizing: border-box; user-select: none; }
@@ -30,6 +42,85 @@
       overflow: hidden;
     }
 
+    /* ===== Floating Stars Animation ===== */
+    #desktop::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2px 2px at 200px 50px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 250px 160px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 300px 90px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 350px 140px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2px 2px at 400px 60px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 450px 180px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 500px 100px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 180px 200px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 280px 30px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 380px 170px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 480px 90px, rgba(255,255,255,0.2), transparent);
+      background-size: 550px 250px;
+      animation: twinkle 6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    #desktop::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 100px 100px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 220px 60px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 340px 190px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 460px 40px, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 140px 220px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 320px 130px, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 500px 200px, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 80px 180px, rgba(255,255,255,0.3), transparent);
+      background-size: 550px 250px;
+      animation: twinkle2 7s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.45; }
+    }
+
+    @keyframes twinkle2 {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ===== Print Styles ===== */
+    @media print {
+      #desktop, #taskbar { display: none !important; }
+      body { background: #fff; }
+      .window { display: block !important; position: static !important; border: none !important; box-shadow: none !important; }
+      .window-content { padding: 0 !important; }
+      .title-bar { display: none !important; }
+      .controls { display: none !important; }
+      .card-game-table { background: #fff !important; }
+      .tarot-card { break-inside: avoid; page-break-inside: avoid; border: 1px solid #ccc; margin-bottom: 20px; }
+      .tarot-card-inner { transform: none !important; }
+      .tarot-card-front { display: none !important; }
+      .tarot-card-back { display: block !important; transform: none !important; position: static !important; border: none !important; }
+    }
+
     /* ===== Desktop ===== */
     #desktop {
       position: absolute;
@@ -41,28 +132,35 @@
     }
 
     .icon {
-      width: 72px;
+      width: 120px;
       text-align: center;
       color: #fff;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       cursor: default;
       word-wrap: break-word;
     }
 
+    .icon[data-window="gallery"] {
+      position: absolute;
+      bottom: 60px;
+      right: 30px;
+      margin-bottom: 0;
+    }
+
     .icon span {
       display: block;
-      font-size: 11px;
+      font-size: 12px;
       text-shadow: 1px 1px #000;
       line-height: 1.2;
-      max-width: 72px;
+      max-width: 120px;
       overflow-wrap: break-word;
     }
 
     .icon img {
-      width: 32px;
-      height: 32px;
+      width: 64px;
+      height: 64px;
       display: block;
-      margin: 0 auto 6px;
+      margin: 0 auto 8px;
       image-rendering: pixelated;
     }
 
@@ -87,6 +185,10 @@
       width: 650px;
     }
 
+    #about {
+      width: 900px;
+    }
+
     .project-detail {
       max-height: 450px;
       overflow-y: auto;
@@ -107,11 +209,11 @@
     }
 
     .window.active .title-bar {
-      background: linear-gradient(to right, var(--title-active), #0000aa);
+      background: linear-gradient(to right, var(--title-active), #5a3d8a);
     }
 
     .window.inactive .title-bar {
-      background: linear-gradient(to right, var(--title-inactive), #a0a0a0);
+      background: linear-gradient(to right, var(--title-inactive), #a09ab0);
     }
 
     .title-bar {
@@ -203,7 +305,7 @@
     }
 
     .gallery-item:hover {
-      background: #000080;
+      background: #6b5b95;
       border: 2px inset #808080;
     }
 
@@ -257,12 +359,12 @@
     }
 
     .project-folder:hover {
-      background: #000080;
+      background: #6b5b95;
       color: #fff;
     }
 
     .project-folder.active {
-      background: #000080;
+      background: #6b5b95;
       color: #fff;
     }
 
@@ -299,8 +401,22 @@
       border-top: 2px solid var(--border-light);
       display: flex;
       align-items: center;
-      padding: 4px;
-      gap: 6px;
+      padding: 4px 4px 4px 4px;
+      gap: 4px;
+    }
+
+    #start {
+      margin-right: 6px;
+    }
+
+    #clock {
+      margin-left: auto;
+      padding: 4px 12px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      font-size: 11px;
+      cursor: default;
     }
 
     #start {
@@ -317,7 +433,11 @@
       border: 2px solid var(--border-dark);
       box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
       font-size: 11px;
-      cursor: default;
+      cursor: pointer;
+    }
+
+    .task:hover {
+      background: #d0d0d0;
     }
 
     /* ===== Document Viewer Toolbar Buttons ===== */
@@ -420,6 +540,170 @@
       display: block;
     }
 
+    /* ===== Tarot Card Game ===== */
+    .card-game-table {
+      background: linear-gradient(135deg, #1a0f2e 0%, #2d1b4e 50%, #1a0f2e 100%);
+      border: 3px inset #808080;
+      padding: 20px;
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-game-table::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(155, 141, 196, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(155, 141, 196, 0.1) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(155, 141, 196, 0.05) 2px, transparent 2px);
+      background-size: 100px 100px, 150px 150px, 200px 200px;
+      pointer-events: none;
+    }
+
+    .card-spread {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tarot-card {
+      width: 200px;
+      height: 280px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .tarot-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .tarot-card.flipped .tarot-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .tarot-card-front, .tarot-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .tarot-card-front {
+      background: linear-gradient(145deg, #6b5b95, #4a2c7a);
+      border: 3px solid #f0e6ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .tarot-card-front::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border: 1px solid #9d8dc4;
+      border-radius: 4px;
+    }
+
+    .tarot-card-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .tarot-card-title {
+      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      color: #f0e6ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tarot-card-subtitle {
+      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
+      font-size: 9px;
+      color: #e6d6ff;
+      margin-top: 4px;
+    }
+
+    .tarot-card-back {
+      background: #f0e6ff;
+      transform: rotateY(180deg);
+      border: 3px solid #6b5b95;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 10px;
+      color: #2d1b4e;
+      line-height: 1.4;
+    }
+
+    .tarot-card-back::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .tarot-card-back::-webkit-scrollbar-track {
+      background: #e6d6ff;
+    }
+
+    .tarot-card-back::-webkit-scrollbar-thumb {
+      background: #6b5b95;
+      border-radius: 4px;
+    }
+
+    .tarot-card-back h4 {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+      color: #4a2c7a;
+      text-align: center;
+      border-bottom: 1px solid #9d8dc4;
+      padding-bottom: 4px;
+    }
+
+    .tarot-card-back ul {
+      margin: 0;
+      padding-left: 14px;
+    }
+
+    .tarot-card-back li {
+      margin-bottom: 3px;
+    }
+
+    .card-game-instructions {
+      text-align: center;
+      color: #e6d6ff;
+      font-size: 11px;
+      padding: 8px;
+      background: rgba(74, 44, 122, 0.5);
+      border: 1px solid #9d8dc4;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-game-instructions span {
+      font-style: italic;
+    }
+
     /* ===== Mobile Responsive ===== */
     @media (max-width: 600px) {
       #desktop {
@@ -487,149 +771,212 @@
 <body>
 
   <div id="desktop">
+    <div class="icon" data-window="readme">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='8' y='4' width='48' height='56' fill='%23fff' stroke='%23000' stroke-width='2'/><rect x='12' y='8' width='40' height='4' fill='%236b5b95'/><line x1='12' y1='18' x2='48' y2='18' stroke='%23000' stroke-width='1'/><line x1='12' y1='24' x2='48' y2='24' stroke='%23000' stroke-width='1'/><line x1='12' y1='30' x2='40' y2='30' stroke='%23000' stroke-width='1'/><line x1='12' y1='36' x2='44' y2='36' stroke='%23000' stroke-width='1'/><line x1='12' y1='42' x2='36' y2='42' stroke='%23000' stroke-width='1'/></svg>" />
+      <span>README.txt</span>
+    </div>
+
     <div class="icon" data-window="about">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='4' width='28' height='18' fill='%23c0c0c0' stroke='%23000'/><rect x='6' y='8' width='20' height='10' fill='%23008080'/><rect x='10' y='24' width='12' height='4' fill='%23808080' stroke='%23000'/></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='12' y='8' width='40' height='52' rx='4' fill='%23f0e6ff' stroke='%234a2c7a' stroke-width='3'/><rect x='16' y='12' width='32' height='40' fill='%236b5b95' stroke='%234a2c7a' stroke-width='2'/><line x1='20' y1='20' x2='44' y2='20' stroke='%23f0e6ff' stroke-width='2'/><line x1='20' y1='28' x2='44' y2='28' stroke='%23f0e6ff' stroke-width='2'/><line x1='20' y1='36' x2='44' y2='36' stroke='%23f0e6ff' stroke-width='2'/><circle cx='32' cy='44' r='2' fill='%239d8dc4'/></svg>" />
       <span>About Me</span>
     </div>
 
     <div class="icon" data-window="projects">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 10h12l2-4h14v20H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><path d='M4 20h24l4-8h28v40H4z' fill='%239d8dc4' stroke='%23000' stroke-width='2'/><path d='M8 24h32l2-4h20v32H8z' fill='%236b5b95' stroke='%234a2c7a' stroke-width='1'/></svg>" />
       <span>Projects</span>
     </div>
 
     <div class="icon" data-window="contact">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='6' width='28' height='20' fill='%23ffffff' stroke='%23000'/><path d='M2 6l14 10L30 6' stroke='%23000' fill='none'/></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='12' width='56' height='40' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><path d='M4 12l28 20 28-20' stroke='%234a2c7a' fill='none' stroke-width='3'/></svg>" />
       <span>Contact</span>
     </div>
 
     <div class="icon" data-window="resume">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='4' y='2' width='24' height='28' fill='%23ffffff' stroke='%23000'/><line x1='8' y1='8' x2='24' y2='8' stroke='%23000'/><line x1='8' y1='12' x2='24' y2='12' stroke='%23000'/><line x1='8' y1='16' x2='20' y2='16' stroke='%23000'/></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='8' y='4' width='48' height='56' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><line x1='16' y1='16' x2='48' y2='16' stroke='%236b5b95' stroke-width='3'/><line x1='16' y1='28' x2='48' y2='28' stroke='%236b5b95' stroke-width='3'/><line x1='16' y1='40' x2='40' y2='40' stroke='%236b5b95' stroke-width='3'/></svg>" />
       <span>Resume</span>
     </div>
 
+    <div class="icon" data-window="linkedin">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='4' width='56' height='56' rx='8' fill='%236b5b95' stroke='%23000' stroke-width='2'/><text x='32' y='44' font-family='Arial' font-size='32' font-weight='bold' fill='%23fff' text-anchor='middle'>in</text></svg>" />
+      <span>LinkedIn</span>
+    </div>
+
     <div class="icon" data-window="gallery">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='4' width='28' height='20' fill='%23ffffff' stroke='%23000'/><circle cx='10' cy='12' r='3' fill='%23008080'/><path d='M6 20l6-6 4 4 6-6 4 8z' fill='%2380c0c0' stroke='%23000'/></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='8' width='56' height='40' fill='%23f0e6ff' stroke='%23000' stroke-width='2'/><circle cx='20' cy='24' r='6' fill='%236b5b95'/><path d='M12 40l12-12 8 8 12-12 8 16z' fill='%239d8dc4' stroke='%234a2c7a' stroke-width='2'/></svg>" />
       <span>Gallery</span>
     </div>
 
-    <!-- About Window -->
-    <div class="window inactive" id="about" data-title="About Hannah">
+    <!-- README Window -->
+    <div class="window inactive" id="readme" data-title="README.txt">
       <div class="title-bar">
-        <div class="title">About Hannah</div>
+        <div class="title">README.txt - Notepad</div>
         <div class="controls"><button data-close>x</button></div>
       </div>
-      <div class="window-content" style="padding:8px;">
-        <div class="tab-nav">
-          <button class="tab-btn active" data-tab="overview">Overview</button>
-          <button class="tab-btn" data-tab="skills">Skills</button>
-          <button class="tab-btn" data-tab="work">Work History</button>
-          <button class="tab-btn" data-tab="education">Education</button>
-        </div>
+      <div class="window-content" style="background:#fff; padding:8px; font-family:'Courier New', monospace; font-size:12px; color:#000;">
+        <p style="margin:0 0 8px 0;">═══════════════════════════════════════════════════════</p>
+        <p style="margin:0;"><b>HANNAH ESTES - SOFTWARE DEVELOPER PORTFOLIO</b></p>
+        <p style="margin:4px 0 8px 0;">XR Developer • Mobile Apps • Agentic AI</p>
 
-        <!-- Overview Tab -->
-        <div class="tab-content active" id="tab-overview">
-          <p>Hi! I'm Hannah. I'm a software developer with 8+ years of experience creating virtual reality, mobile, and web applications within enterprise and startup environments.</p>
+        <p style="margin:8px 0 4px 0;"><b>QUICK SUMMARY</b></p>
+        <p style="margin:4px 0;">8+ years building VR/AR, mobile, and web applications.</p>
+        <p style="margin:4px 0;">Specialized in immersive experiences and spatial computing.</p>
+        <p style="margin:4px 0;">Based in Phoenix, AZ • Open to relocation</p>
 
-          <p>I love creating immersive apps and experiences with purpose and playing with the latest XR toys and spatial computing technologies.</p>
+        <p style="margin:8px 0 4px 0;"><b>KEY HIGHLIGHTS</b></p>
+        <p style="margin:4px 0;">• SXSW 2025 Official Selection - 1906 Atlanta Race Massacre</p>
+        <p style="margin:4px 0;">• SXSW 2022 Audience Award - The Choice VR</p>
+        <p style="margin:4px 0;">• US Patent Holder (Gig-Economy Fleet Systems)</p>
 
-          <p>When I'm not at the computer or inside of a headset, you can find me taking classes at the arts center or enjoying live music somewhere in Phoenix.</p>
+        <p style="margin:8px 0 4px 0;"><b>TECHNICAL FOCUS</b></p>
+        <p style="margin:4px 0;">Unity XR • iOS (Swift) • Agentic AI • Automated Testing</p>
 
-          <fieldset style="border:2px inset #808080; padding:8px; margin-top:12px;">
-            <legend><b>What I Do</b></legend>
-            <ul style="margin:6px 0; padding-left:18px; font-size:12px;">
-              <li><b>XR Development</b> - Using the latest technologies to create powerful immersive experiences. 5+ years experience with Unity and VR/AR development.</li>
-              <li><b>Agentic AI</b> - Building and researching intelligent agents for a new generation of sales, education, and training applications.</li>
-              <li><b>Mobile Apps</b> - 5+ years developing and distributing iOS apps using Swift, Unity, and cross-platform tools.</li>
-              <li><b>Education & Storytelling</b> - Creating engaging experiences to enhance learning outcomes for Fortune 500 companies.</li>
-            </ul>
-          </fieldset>
-        </div>
+        <p style="margin:8px 0 4px 0;"><b>GET IN TOUCH</b></p>
+        <p style="margin:4px 0;">Email: <a href="mailto:hannahwritescode@gmail.com" style="color:#6b5b95;">hannahwritescode@gmail.com</a></p>
+        <p style="margin:4px 0;">LinkedIn: <a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" style="color:#6b5b95;">linkedin.com/in/hannahmestes</a></p>
 
-        <!-- Skills Tab -->
-        <div class="tab-content" id="tab-skills">
-          <fieldset style="border:2px inset #808080; padding:8px;">
-            <legend><b>Top Skills</b></legend>
-            <table cellpadding="2" cellspacing="0" style="font-size:12px;">
-              <tr><td width="100">Unity</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-              <tr><td>iOS</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-              <tr><td>Agentic AI</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:70%; height:100%;"></div></div></td></tr>
-              <tr><td>Automated Testing</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-              <tr><td>Cross-Platform</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:90%; height:100%;"></div></div></td></tr>
-            </table>
-          </fieldset>
-        </div>
+        <p style="margin:8px 0 0 0;">═══════════════════════════════════════════════════════</p>
+        <p style="margin:4px 0; color:#808080;">Click icons on desktop to explore</p>
+      </div>
+    </div>
 
-        <!-- Work History Tab -->
-        <div class="tab-content" id="tab-work">
-          <fieldset style="border:2px inset #808080; padding:8px;">
-            <legend><b>Work History</b></legend>
-            <table cellpadding="3" cellspacing="0" style="font-size:11px; width:100%;">
-              <tr>
-                <td colspan="2"><b>Mobile Developer</b> <span style="color:#808080;">@ EHMA Fintech</span></td>
-                <td align="right" nowrap>2025 — Current</td>
-              </tr>
-              <tr>
-                <td colspan="3" style="padding-bottom:8px;">
-                  • Research and develop AI agent systems for direct-to-consumer solar sales applications<br>
-                  • Build AI-powered sales agent leveraging NLP and machine learning<br>
-                  • Integrate advanced AI capabilities into mobile fintech applications
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2"><b>Lead Developer</b> <span style="color:#808080;">@ Harbinger Creative</span></td>
-                <td align="right" nowrap>2024 — 2025</td>
-              </tr>
-              <tr>
-                <td colspan="3" style="padding-bottom:8px;">
-                  • Developed "Vizulingo" - Unity mobile app combining AI learning assistants with XR features<br>
-                  • Integrated ChatGPT API for real-time student feedback in job training
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2"><b>Lead Developer</b> <span style="color:#808080;">@ Baltu Technologies</span></td>
-                <td align="right" nowrap>2021 — 2024</td>
-              </tr>
-              <tr>
-                <td colspan="3" style="padding-bottom:8px;">
-                  • Led development of Superdoc, Unity-based knowledge-sharing platform for iPad<br>
-                  • Developed VR applications for Meta Quest including aerospace facility simulation<br>
-                  • Created workforce exploration VR app for Maricopa Community Colleges<br>
-                  • Designed and implemented automated testing suite using AltUnityTester, Appium, and Cucumber<br>
-                  • Led scrum ceremonies for teams of 7+ people
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2"><b>iOS Developer & XR Research Intern</b> <span style="color:#808080;">@ State Farm</span></td>
-                <td align="right" nowrap>2015 — 2021</td>
-              </tr>
-              <tr>
-                <td colspan="3">
-                  <b>Production Development (2020-2021):</b><br>
-                  • Developed social iOS app integrating Alexa voice services and real-time communication<br>
-                  • Implemented accessibility features for iPad and iPhone<br><br>
-                  <b>XR Research & Development (2015-2019):</b><br>
-                  • Implemented VR training applications with in-game handheld camera and scoring system<br>
-                  • Developed LIV integration pipeline for Unity applications enabling green screen compositing
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-        </div>
+    <!-- About Window -->
+    <div class="window inactive" id="about" data-title="The Tarot Deck">
+      <div class="title-bar">
+        <div class="title">The Tarot Deck</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content" style="padding:4px;">
+        <div class="card-game-table">
+          <div class="card-game-instructions">
+            <span>Click a card to reveal its meaning...</span>
+          </div>
+          <div class="card-spread">
+            <!-- The Seeker Card -->
+            <div class="tarot-card" data-card="seeker">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">🔮</div>
+                  <div class="tarot-card-title">The Seeker</div>
+                  <div class="tarot-card-subtitle">Who I Am</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Seeker</h4>
+                  <p><b>Hi! I'm Hannah.</b> I'm a software developer with 8+ years of experience creating VR, mobile, and web applications.</p>
+                  <p>I love creating immersive apps with purpose and playing with the latest XR toys and spatial computing technologies.</p>
+                  <p>When I'm not at the computer, you can find me taking classes at the arts center or enjoying live music in Phoenix.</p>
+                </div>
+              </div>
+            </div>
 
-        <!-- Education Tab -->
-        <div class="tab-content" id="tab-education">
-          <fieldset style="border:2px inset #808080; padding:8px;">
-            <legend><b>Education</b></legend>
-            <table cellpadding="3" cellspacing="0" style="font-size:11px;">
-              <tr>
-                <td><b>Texas Tech University</b></td>
-                <td align="right" nowrap>2016 — 2019</td>
-              </tr>
-              <tr>
-                <td colspan="2">Bachelor of Science in Computer Science, Summa cum laude<br>Highest Ranking Graduate, 4.0/4.0 GPA</td>
-              </tr>
-            </table>
-          </fieldset>
+            <!-- The Professional Card -->
+            <div class="tarot-card" data-card="professional">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">🏛️</div>
+                  <div class="tarot-card-title">The Professional</div>
+                  <div class="tarot-card-subtitle">Work History</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Professional</h4>
+                  <p><b>Mobile Developer</b> @ EHMA Fintech<br><i>2025 — Current</i></p>
+                  <p>Research & develop AI agent systems for solar sales</p>
+                  <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
+                  <p><b>Lead Developer</b> @ Harbinger Creative<br><i>2024 — 2025</i></p>
+                  <p>Developed Vizulingo - AI learning platform with XR features</p>
+                  <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
+                  <p><b>Lead Developer</b> @ Baltu Technologies<br><i>2021 — 2024</i></p>
+                  <p>Led SuperDoc development, VR training apps, automated testing</p>
+                  <hr style="border:0; border-top:1px solid #9d8dc4; margin:8px 0;">
+                  <p><b>iOS/XR Intern</b> @ State Farm<br><i>2015 — 2021</i></p>
+                  <p>Social iOS app, VR training, LIV integration</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Developer Card -->
+            <div class="tarot-card" data-card="developer">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">⚡</div>
+                  <div class="tarot-card-title">The Developer</div>
+                  <div class="tarot-card-subtitle">Technical Skills</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Developer</h4>
+                  <p><b>Core Expertise:</b></p>
+                  <ul>
+                    <li><b>XR Development</b> - 5+ years (Unity, ARKit/ARCore, Meta XR, VisionOS)</li>
+                    <li><b>Mobile Development</b> - 5+ years (iOS with Swift/SwiftUI, cross-platform)</li>
+                    <li><b>Agentic AI</b> - 2 years building intelligent agents</li>
+                    <li><b>Automated Testing</b> - 3 years (Appium, Cucumber, AltUnityTester)</li>
+                  </ul>
+                  <p style="margin-top:8px;"><b>Languages & Tools:</b> C#, Swift, JavaScript/TypeScript, HTML/CSS</p>
+                  <p style="margin-top:4px;"><b>Specialties:</b> Volumetric video integration, media optimization, 3D performance, App Store distribution</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Creator Card -->
+            <div class="tarot-card" data-card="creator">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">🎨</div>
+                  <div class="tarot-card-title">The Creator</div>
+                  <div class="tarot-card-subtitle">Awards</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Creator</h4>
+                  <p><b>Recognition & Awards:</b></p>
+                  <ul>
+                    <li>2025 Telly Award - Volumetric Capture (1906)</li>
+                    <li>SXSW 2025 Official Selection - 1906</li>
+                    <li>SXSW 2025 Official Selection - The Choice Ch. 2&3</li>
+                    <li>Canadian Screen Award Nominee 2023</li>
+                    <li>SXSW 2022 Audience Award - The Choice</li>
+                    <li>Games for Change 2022 Best XR Experience</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Student Card -->
+            <div class="tarot-card" data-card="student">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">📚</div>
+                  <div class="tarot-card-title">The Student</div>
+                  <div class="tarot-card-subtitle">Education</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Student</h4>
+                  <p><b>Texas Tech University</b><br><i>2016 — 2019</i></p>
+                  <p>Bachelor of Science in Computer Science</p>
+                  <p><b>Summa cum laude</b></p>
+                  <p>Highest Ranking Graduate</p>
+                  <p style="margin-top:8px; font-size:9px; color:#808080;">4.0 GPA</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Innovator Card -->
+            <div class="tarot-card" data-card="innovator">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <div class="tarot-card-icon">💡</div>
+                  <div class="tarot-card-title">The Innovator</div>
+                  <div class="tarot-card-subtitle">Patents</div>
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Innovator</h4>
+                  <p><b>US Patent Awarded 2024</b></p>
+                  <p><b>US-20240182600-A1</b></p>
+                  <p style="margin-top:8px;"><i>Systems and Methods of Gig-Economy Fleet Mobilization</i></p>
+                  <p style="margin-top:8px;">Novel system for automatic detection and optimization of gig-economy fleet operations through advanced data processing algorithms.</p>
+                  <p style="margin-top:8px;"><b>Holders:</b> Hannah Estes et al.<br><b>Assignee:</b> State Farm</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -665,11 +1012,11 @@
           <table cellpadding="3" cellspacing="0" style="font-size:12px;">
             <tr>
               <td width="80" align="right"><b>E-mail:</b></td>
-              <td><a href="mailto:hannahwritescode@gmail.com" style="color:#000080;">hannahwritescode@gmail.com</a></td>
+              <td><a href="mailto:hannahwritescode@gmail.com" style="color:#6b5b95;">hannahwritescode@gmail.com</a></td>
             </tr>
             <tr>
               <td align="right"><b>Phone:</b></td>
-              <td><a href="tel:+14802985039" style="color:#000080;">+1 (480) 298-5039</a></td>
+              <td><a href="tel:+14802985039" style="color:#6b5b95;">+1 (480) 298-5039</a></td>
             </tr>
           </table>
         </fieldset>
@@ -679,11 +1026,11 @@
           <table cellpadding="3" cellspacing="0" style="font-size:12px;">
             <tr>
               <td width="80" align="right"><b>LinkedIn:</b></td>
-              <td><a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" style="color:#000080;">hannahmestes</a></td>
+              <td><a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" style="color:#6b5b95;">hannahmestes</a></td>
             </tr>
             <tr>
               <td align="right"><b>GitHub:</b></td>
-              <td><a href="https://github.com/hannahwritescode" target="_blank" style="color:#000080;">hannahwritescode</a></td>
+              <td><a href="https://github.com/hannahwritescode" target="_blank" style="color:#6b5b95;">hannahwritescode</a></td>
             </tr>
           </table>
         </fieldset>
@@ -733,7 +1080,7 @@
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/1906.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">1906 Atlanta Race Massacre</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">1906 Atlanta Race Massacre</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -749,19 +1096,19 @@
               </table>
               <p style="margin:8px 0; font-size:11px;"><b>AR documentary for the National Center for Civil and Human Rights.</b> An immersive location-based experience bringing one of the most violent incidents in Atlanta's history to life through augmented reality on mobile devices.</p>
               <p style="margin:8px 0; font-size:11px;">Features interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video captured at Metastage. Allows visitors to the museum to experience history through cutting-edge XR technology.</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#000080;">SXSW 2025 Official Selection →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#6b5b95;">SXSW 2025 Official Selection →</a></p>
               <p style="margin:8px 0; font-size:11px;"><b>Links & Press:</b></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt35543783/" target="_blank" style="color:#000080;">IMDb</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://mashable.com/article/immersive-tech-for-good" target="_blank" style="color:#000080;">Mashable</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.prnewswire.com/news-releases/dne-studios--nonna-de-la-pena-pushes-boundaries-with-volumetric-4d-storytelling-of-the-1906-atlanta-race-massacre-at-sxsw-302396306.html" target="_blank" style="color:#000080;">Press Release</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1548-1906-atlanta-race-massacre-uses-phone-based-ar-to-volumetrically-tell-a-forgotten-history/" target="_blank" style="color:#000080;">Voices of VR</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://apps.apple.com/us/app/1906-atlanta-ar/id6478511475" target="_blank" style="color:#000080;">App Store →</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt35543783/" target="_blank" style="color:#6b5b95;">IMDb</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://mashable.com/article/immersive-tech-for-good" target="_blank" style="color:#6b5b95;">Mashable</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.prnewswire.com/news-releases/dne-studios--nonna-de-la-pena-pushes-boundaries-with-volumetric-4d-storytelling-of-the-1906-atlanta-race-massacre-at-sxsw-302396306.html" target="_blank" style="color:#6b5b95;">Press Release</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1548-1906-atlanta-race-massacre-uses-phone-based-ar-to-volumetrically-tell-a-forgotten-history/" target="_blank" style="color:#6b5b95;">Voices of VR</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://apps.apple.com/us/app/1906-atlanta-ar/id6478511475" target="_blank" style="color:#6b5b95;">App Store →</a></p>
             </div>
             <div id="project-choice" class="project-detail" style="display:none;">
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/choice.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">The Choice</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">The Choice</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -778,19 +1125,19 @@
               <p style="margin:8px 0; font-size:11px;"><b>Groundbreaking VR documentary series exploring reproductive rights with empathy and intimacy.</b> Multi-chapter experience that challenges stigma and fosters understanding through immersive storytelling about personal agency and complex reproductive decisions.</p>
               <p style="margin:8px 0; font-size:11px;">Features stereoscopic volumetric video for intimate, conversation-like interactions and minimalist animation. Used as educational tool on campuses and in workshops. Available on Meta Quest platform.</p>
               <p style="margin:4px 0; font-size:11px;"><b>Awards:</b> SXSW 2022 Audience Award • Games for Change 2022 Best XR Experience • Canadian Screen Awards Finalist • Featured at 20+ international festivals</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://www.thechoice-vr.com" target="_blank" style="color:#000080;">thechoice-vr.com →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://www.thechoice-vr.com" target="_blank" style="color:#6b5b95;">thechoice-vr.com →</a></p>
               <p style="margin:8px 0; font-size:11px;"><b>Links & Press:</b></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.meta.com/experiences/the-choice/3778279212230624/" target="_blank" style="color:#000080;">Meta Quest Store</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt7238610/" target="_blank" style="color:#000080;">IMDb</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1547-simulating-one-on-one-conversations-about-abortion-experiences-to-change-minds-with-the-choice-chapters-2-3/" target="_blank" style="color:#000080;">Voices of VR: Chapter 2&3</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1075-stereoscopic-compositing-innovations-the-choice-interactive-documentary-exploring-reproductive-rights-in-texas/" target="_blank" style="color:#000080;">Voices of VR: Compositing</a></p>
-              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.austinchronicle.com/features/vr-documentary-invites-you-to-an-intimate-conversation-on-abortion-12125521/" target="_blank" style="color:#000080;">Austin Chronicle</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.meta.com/experiences/the-choice/3778279212230624/" target="_blank" style="color:#6b5b95;">Meta Quest Store</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt7238610/" target="_blank" style="color:#6b5b95;">IMDb</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1547-simulating-one-on-one-conversations-about-abortion-experiences-to-change-minds-with-the-choice-chapters-2-3/" target="_blank" style="color:#6b5b95;">Voices of VR: Chapter 2&3</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1075-stereoscopic-compositing-innovations-the-choice-interactive-documentary-exploring-reproductive-rights-in-texas/" target="_blank" style="color:#6b5b95;">Voices of VR: Compositing</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.austinchronicle.com/features/vr-documentary-invites-you-to-an-intimate-conversation-on-abortion-12125521/" target="_blank" style="color:#6b5b95;">Austin Chronicle</a></p>
             </div>
             <div id="project-vizulingo" class="project-detail" style="display:none;">
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/vizu-logo.png" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">Vizulingo</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">Vizulingo</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -807,13 +1154,13 @@
               <p style="margin:8px 0; font-size:11px;"><b>Mobile-first immersive learning platform teaching job skills through storytelling.</b> Designed to build confidence in healthcare, hospitality, and tech sectors without requiring VR headsets or classrooms.</p>
               <p style="margin:8px 0; font-size:11px;">Features story-based learning with mobile simulations (hospital room, front desk scenarios), AI-powered content, and bite-sized practice sessions. Content reviewed by real educators and built by former NASA engineers.</p>
               <p style="margin:4px 0; font-size:11px;">Addresses critical workforce gaps: 700K annual healthcare job vacancies, 75% hospitality turnover, 60% ESL student dropout rate.</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://vizulingo.com" target="_blank" style="color:#000080;">vizulingo.com →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://vizulingo.com" target="_blank" style="color:#6b5b95;">vizulingo.com →</a></p>
             </div>
             <div id="project-cplc" class="project-detail" style="display:none;">
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/MCCVR.jpg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">Career Exploration VR</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">Career Exploration VR</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -829,13 +1176,13 @@
               </table>
               <p style="margin:8px 0; font-size:11px;"><b>VR workforce exploration app for Maricopa Community Colleges in partnership with Intel and Boeing.</b> Students can experience simulated job activities in aerospace manufacturing, helping them explore career paths before committing to training programs.</p>
               <p style="margin:8px 0; font-size:11px;">Built for Meta Quest, featuring interactive job simulations that give students hands-on experience with real workplace tasks. Developed to address workforce development needs in semiconductor manufacturing.</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" style="color:#000080;">Watch Demo →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" style="color:#6b5b95;">Watch Demo →</a></p>
             </div>
             <div id="project-superdoc" class="project-detail" style="display:none;">
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/superdoc.jpg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">SuperDoc</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">SuperDoc</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -857,7 +1204,7 @@
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/sundial.png" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">Sundial</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">Sundial</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -874,13 +1221,13 @@
               <p style="margin:8px 0; font-size:11px;"><b>Mobile app and Alexa skill helping older adults live independently while staying connected.</b> Sundial enables aging in place by connecting seniors with their "Care Circle" of family and friends.</p>
               <p style="margin:8px 0; font-size:11px;">Features daily activities and reminders, photo sharing with personalized captions to Echo Show, care circle coordination, and check-ins. Simple interface designed for users who aren't tech-savvy.</p>
               <p style="margin:4px 0; font-size:11px;">Addresses demographic shift: by 2030, 1 in 5 U.S. residents will be retirement age, and 3 out of 4 older adults want to stay in their homes.</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#000080;">Press Release →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#6b5b95;">Press Release →</a></p>
             </div>
             <div id="project-sfvr" class="project-detail" style="display:none;">
               <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
                   <td rowspan="4" width="160" valign="top"><img src="assets/images/insurance-vr.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="3"><h3 style="margin:0; color:#000080;">State Farm XR Training</h3></td>
+                  <td colspan="3"><h3 style="margin:0; color:#6b5b95;">State Farm XR Training</h3></td>
                 </tr>
                 <tr style="height:16px;">
                   <td colspan="3"></td>
@@ -897,7 +1244,7 @@
               <p style="margin:8px 0; font-size:11px;"><b>Pioneering VR training and innovation initiatives at State Farm.</b> Part of State Farm's technology exploration in their 100th year, developing immersive experiences for training agents.</p>
               <p style="margin:8px 0; font-size:11px;">Projects included VR for small business insurance quoting, in-game handheld camera system, scoring mechanics, and LIV integration pipeline for green screen compositing in OBS.</p>
               <p style="margin:4px 0; font-size:11px;">Also conducted research on gig economy driving systems and developed automated integration test suite for customer authentication.</p>
-              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#000080;">Press Release →</a></p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#6b5b95;">Press Release →</a></p>
             </div>
           </div>
         </div>
@@ -986,6 +1333,7 @@
 
   <div id="taskbar">
     <div id="start">Start</div>
+    <div id="clock"></div>
   </div>
 
   <script>
@@ -1013,11 +1361,18 @@
         win.style.display = 'block';
         focusWindow(win);
       };
-      taskbar.appendChild(task);
+      const clock = document.getElementById('clock');
+      taskbar.insertBefore(task, clock);
     }
 
     document.querySelectorAll('.icon').forEach(icon => {
-      icon.addEventListener('dblclick', () => {
+      icon.addEventListener('click', () => {
+        // Special handling for LinkedIn - open in new tab
+        if (icon.dataset.window === 'linkedin') {
+          window.open('https://www.linkedin.com/in/hannahmestes/', '_blank');
+          return;
+        }
+
         const win = document.getElementById(icon.dataset.window);
         if (!win) return;
         win.style.display = 'block';
@@ -1214,6 +1569,60 @@
       link.download = 'hannah_estes_resume.pdf';
       link.click();
     }
+
+    // ===== Clock (Phoenix Time) =====
+    function updateClock() {
+      const now = new Date();
+      const phoenixTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+      const hours = phoenixTime.getHours();
+      const minutes = phoenixTime.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const displayHours = hours % 12 || 12;
+      document.getElementById('clock').textContent = `${displayHours}:${minutes} ${ampm}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ===== Card Flip Sound (Web Audio API) =====
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playFlipSound() {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    }
+
+    document.querySelectorAll('.tarot-card').forEach(card => {
+      card.addEventListener('click', () => {
+        playFlipSound();
+        card.classList.toggle('flipped');
+      });
+    });
+
+    // ===== Auto-open README on load for recruiter visibility =====
+    window.addEventListener('DOMContentLoaded', () => {
+      const readme = document.getElementById('readme');
+      if (readme) {
+        readme.style.display = 'block';
+        addTask(readme);
+        focusWindow(readme);
+        // Position in center of screen
+        readme.style.left = '50%';
+        readme.style.top = '50%';
+        readme.style.transform = 'translate(-50%, -50%)';
+      }
+    });
   </script>
 </body>
 </html>
