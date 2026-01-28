@@ -147,8 +147,15 @@
 
     .icon[data-window="gallery"] {
       position: absolute;
-      bottom: 60px;
-      right: 30px;
+      bottom: 120px;
+      right: 16px;
+      margin-bottom: 0;
+    }
+
+    .icon[data-window="recycle"] {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
       margin-bottom: 0;
     }
 
@@ -962,6 +969,11 @@
       <span>Gallery</span>
     </div>
 
+    <div class="icon" data-window="recycle">
+      <img src="assets/images/icons/recycle.png" alt="Recycle" />
+      <span>Recycle</span>
+    </div>
+
     <!-- README Window -->
     <div class="window inactive" id="readme" data-title="README.txt">
       <div class="title-bar">
@@ -1485,6 +1497,29 @@
         </div>
       </div>
     </div>
+
+    <!-- Recycle Window -->
+    <div class="window inactive" id="recycle" data-title="Recycle Bin">
+      <div class="title-bar">
+        <div class="title">C:\Recycle Bin</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content" style="padding:4px;">
+        <div class="explorer">
+          <div class="explorer-sidebar">
+            <div style="padding:4px; font-size:11px; color:#808080; font-style:italic;">
+              Little tools & experiments
+            </div>
+          </div>
+          <div class="explorer-files">
+            <div class="file" data-tool="ereader" style="cursor:pointer;">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='4' y='2' width='24' height='28' fill='%23f0e6ff' stroke='%234a2c7a' stroke-width='2'/><line x1='8' y1='10' x2='24' y2='10' stroke='%236b5b95' stroke-width='2'/><line x1='8' y1='16' x2='24' y2='16' stroke='%239d8dc4' stroke-width='1'/><line x1='8' y1='20' x2='20' y2='20' stroke='%239d8dc4' stroke-width='1'/><line x1='8' y1='24' x2='22' y2='24' stroke='%239d8dc4' stroke-width='1'/></svg>" />
+              <br>eReader Screensaver Tool
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -1730,6 +1765,16 @@
       });
     });
 
+    // ===== Recycle Bin Tool Selection =====
+    document.querySelectorAll('.file[data-tool]').forEach(file => {
+      file.addEventListener('click', () => {
+        const tool = file.dataset.tool;
+        if (tool === 'ereader') {
+          window.open('ereader-screensaver.html', '_blank');
+        }
+      });
+    });
+
     // ===== Project Folder Selection =====
     document.querySelectorAll('.project-folder').forEach(folder => {
       folder.addEventListener('click', () => {
@@ -1798,13 +1843,26 @@
         'contact': 'contact',
         'resume': 'resume',
         'gallery': 'gallery',
-        'linkedin': 'linkedin'
+        'linkedin': 'linkedin',
+        'recycle': 'recycle',
+        'tools': 'recycle'
+      };
+
+      // Map tools to URLs
+      const toolMap = {
+        'ereader': 'ereader-screensaver.html'
       };
 
       // Determine which window to open
       let windowToOpen = null;
       if (pageParam && pageMap[pageParam]) {
         windowToOpen = document.getElementById(pageMap[pageParam]);
+
+        // Check if there's a tool parameter to open
+        const toolParam = urlParams.get('tool');
+        if (toolParam && toolMap[toolParam]) {
+          window.open(toolMap[toolParam], '_blank');
+        }
       } else if (window.innerWidth > 600) {
         // Default to README on desktop if no page parameter
         windowToOpen = document.getElementById('readme');
