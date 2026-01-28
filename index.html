@@ -83,6 +83,29 @@
       display: none;
     }
 
+    #projects {
+      width: 650px;
+    }
+
+    .project-detail {
+      max-height: 450px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .project-detail::-webkit-scrollbar {
+      width: 16px;
+    }
+
+    .project-detail::-webkit-scrollbar-track {
+      background: #c0c0c0;
+    }
+
+    .project-detail::-webkit-scrollbar-thumb {
+      background: #808080;
+      border: 2px outset #c0c0c0;
+    }
+
     .window.active .title-bar {
       background: linear-gradient(to right, var(--title-active), #0000aa);
     }
@@ -132,7 +155,7 @@
     .explorer {
       display: grid;
       grid-template-columns: 120px 1fr;
-      height: 220px;
+      height: 470px;
       border: 2px inset var(--border-mid);
       background: #fff;
     }
@@ -353,6 +376,50 @@
       border: none;
     }
 
+    /* ===== Tabbed Interface ===== */
+    .tab-nav {
+      display: flex;
+      gap: 2px;
+      background: var(--window-bg);
+      border: 2px inset var(--border-mid);
+      padding: 4px;
+      margin-bottom: 4px;
+    }
+
+    .tab-btn {
+      padding: 4px 12px;
+      font-size: 11px;
+      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      cursor: pointer;
+      color: #000;
+    }
+
+    .tab-btn:hover {
+      background: #d0d0d0;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      box-shadow: inset 1px 1px var(--border-mid), inset -1px -1px var(--border-light);
+      border: 2px solid var(--border-mid);
+      border-bottom-color: #fff;
+      border-right-color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 8px 0;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
     /* ===== Mobile Responsive ===== */
     @media (max-width: 600px) {
       #desktop {
@@ -380,6 +447,20 @@
 
       .pdf-frame-wrapper {
         height: calc(100% - 80px);
+      }
+
+      #projects {
+        width: 100% !important;
+        height: calc(100% - 60px);
+      }
+
+      .explorer {
+        height: calc(100% - 80px);
+      }
+
+      .project-detail {
+        max-height: none;
+        height: 100%;
       }
 
       .gallery-grid {
@@ -437,33 +518,119 @@
         <div class="title">About Hannah</div>
         <div class="controls"><button data-close>x</button></div>
       </div>
-      <div class="window-content">
-        <p>Hi! I'm Hannah. I'm a software developer with 8+ years of experience creating virtual reality, mobile, and web applications within enterprise and startup environments.</p>
+      <div class="window-content" style="padding:8px;">
+        <div class="tab-nav">
+          <button class="tab-btn active" data-tab="overview">Overview</button>
+          <button class="tab-btn" data-tab="skills">Skills</button>
+          <button class="tab-btn" data-tab="work">Work History</button>
+          <button class="tab-btn" data-tab="education">Education</button>
+        </div>
 
-        <p>I love creating immersive apps and experiences with purpose and playing with the latest XR toys and spatial computing technologies.</p>
+        <!-- Overview Tab -->
+        <div class="tab-content active" id="tab-overview">
+          <p>Hi! I'm Hannah. I'm a software developer with 8+ years of experience creating virtual reality, mobile, and web applications within enterprise and startup environments.</p>
 
-        <p>When I'm not at the computer or inside of a headset, you can find me taking classes at the arts center or enjoying live music somewhere in Phoenix.</p>
+          <p>I love creating immersive apps and experiences with purpose and playing with the latest XR toys and spatial computing technologies.</p>
 
-        <fieldset style="border:2px inset #808080; padding:8px; margin-top:12px;">
-          <legend><b>What I Do</b></legend>
-          <ul style="margin:6px 0; padding-left:18px; font-size:12px;">
-            <li><b>XR Development</b> - Using the latest technologies to create powerful immersive experiences. 5+ years experience with Unity and VR/AR development.</li>
-            <li><b>Agentic AI</b> - Building and researching intelligent agents for a new generation of sales, education, and training applications.</li>
-            <li><b>Mobile Apps</b> - 5+ years developing and distributing iOS apps using Swift, Unity, and cross-platform tools.</li>
-            <li><b>Education & Storytelling</b> - Creating engaging experiences to enhance learning outcomes for Fortune 500 companies.</li>
-          </ul>
-        </fieldset>
+          <p>When I'm not at the computer or inside of a headset, you can find me taking classes at the arts center or enjoying live music somewhere in Phoenix.</p>
 
-        <fieldset style="border:2px inset #808080; padding:8px; margin-top:8px;">
-          <legend><b>Top Skills</b></legend>
-          <table cellpadding="2" cellspacing="0" style="font-size:12px;">
-            <tr><td width="100">Unity</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-            <tr><td>iOS</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-            <tr><td>Agentic AI</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:70%; height:100%;"></div></div></td></tr>
-            <tr><td>Automated Testing</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
-            <tr><td>Cross-Platform</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:90%; height:100%;"></div></div></td></tr>
-          </table>
-        </fieldset>
+          <fieldset style="border:2px inset #808080; padding:8px; margin-top:12px;">
+            <legend><b>What I Do</b></legend>
+            <ul style="margin:6px 0; padding-left:18px; font-size:12px;">
+              <li><b>XR Development</b> - Using the latest technologies to create powerful immersive experiences. 5+ years experience with Unity and VR/AR development.</li>
+              <li><b>Agentic AI</b> - Building and researching intelligent agents for a new generation of sales, education, and training applications.</li>
+              <li><b>Mobile Apps</b> - 5+ years developing and distributing iOS apps using Swift, Unity, and cross-platform tools.</li>
+              <li><b>Education & Storytelling</b> - Creating engaging experiences to enhance learning outcomes for Fortune 500 companies.</li>
+            </ul>
+          </fieldset>
+        </div>
+
+        <!-- Skills Tab -->
+        <div class="tab-content" id="tab-skills">
+          <fieldset style="border:2px inset #808080; padding:8px;">
+            <legend><b>Top Skills</b></legend>
+            <table cellpadding="2" cellspacing="0" style="font-size:12px;">
+              <tr><td width="100">Unity</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+              <tr><td>iOS</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+              <tr><td>Agentic AI</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:70%; height:100%;"></div></div></td></tr>
+              <tr><td>Automated Testing</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+              <tr><td>Cross-Platform</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:90%; height:100%;"></div></div></td></tr>
+            </table>
+          </fieldset>
+        </div>
+
+        <!-- Work History Tab -->
+        <div class="tab-content" id="tab-work">
+          <fieldset style="border:2px inset #808080; padding:8px;">
+            <legend><b>Work History</b></legend>
+            <table cellpadding="3" cellspacing="0" style="font-size:11px; width:100%;">
+              <tr>
+                <td colspan="2"><b>Mobile Developer</b> <span style="color:#808080;">@ EHMA Fintech</span></td>
+                <td align="right" nowrap>2025 — Current</td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding-bottom:8px;">
+                  • Research and develop AI agent systems for direct-to-consumer solar sales applications<br>
+                  • Build AI-powered sales agent leveraging NLP and machine learning<br>
+                  • Integrate advanced AI capabilities into mobile fintech applications
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>Lead Developer</b> <span style="color:#808080;">@ Harbinger Creative</span></td>
+                <td align="right" nowrap>2024 — 2025</td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding-bottom:8px;">
+                  • Developed "Vizulingo" - Unity mobile app combining AI learning assistants with XR features<br>
+                  • Integrated ChatGPT API for real-time student feedback in job training
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>Lead Developer</b> <span style="color:#808080;">@ Baltu Technologies</span></td>
+                <td align="right" nowrap>2021 — 2024</td>
+              </tr>
+              <tr>
+                <td colspan="3" style="padding-bottom:8px;">
+                  • Led development of Superdoc, Unity-based knowledge-sharing platform for iPad<br>
+                  • Developed VR applications for Meta Quest including aerospace facility simulation<br>
+                  • Created workforce exploration VR app for Maricopa Community Colleges<br>
+                  • Designed and implemented automated testing suite using AltUnityTester, Appium, and Cucumber<br>
+                  • Led scrum ceremonies for teams of 7+ people
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>iOS Developer & XR Research Intern</b> <span style="color:#808080;">@ State Farm</span></td>
+                <td align="right" nowrap>2015 — 2021</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <b>Production Development (2020-2021):</b><br>
+                  • Developed social iOS app integrating Alexa voice services and real-time communication<br>
+                  • Implemented accessibility features for iPad and iPhone<br><br>
+                  <b>XR Research & Development (2015-2019):</b><br>
+                  • Implemented VR training applications with in-game handheld camera and scoring system<br>
+                  • Developed LIV integration pipeline for Unity applications enabling green screen compositing
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </div>
+
+        <!-- Education Tab -->
+        <div class="tab-content" id="tab-education">
+          <fieldset style="border:2px inset #808080; padding:8px;">
+            <legend><b>Education</b></legend>
+            <table cellpadding="3" cellspacing="0" style="font-size:11px;">
+              <tr>
+                <td><b>Texas Tech University</b></td>
+                <td align="right" nowrap>2016 — 2019</td>
+              </tr>
+              <tr>
+                <td colspan="2">Bachelor of Science in Computer Science, Summa cum laude<br>Highest Ranking Graduate, 4.0/4.0 GPA</td>
+              </tr>
+            </table>
+          </fieldset>
+        </div>
       </div>
     </div>
 
@@ -563,119 +730,174 @@
           </div>
           <div class="explorer-files project-content">
             <div id="project-1906" class="project-detail">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/1906.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">1906 Atlanta Race Massacre</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/1906.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">1906 Atlanta Race Massacre</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>AR Documentary</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">Emblematic Group</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#000080;">SXSW 2025</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">AR • iOS/Android</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">AR experience for National Center for Civil and Human Rights featuring interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>AR documentary for the National Center for Civil and Human Rights.</b> An immersive location-based experience bringing one of the most violent incidents in Atlanta's history to life through augmented reality on mobile devices.</p>
+              <p style="margin:8px 0; font-size:11px;">Features interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video captured at Metastage. Allows visitors to the museum to experience history through cutting-edge XR technology.</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#000080;">SXSW 2025 Official Selection →</a></p>
+              <p style="margin:8px 0; font-size:11px;"><b>Links & Press:</b></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt35543783/" target="_blank" style="color:#000080;">IMDb</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://mashable.com/article/immersive-tech-for-good" target="_blank" style="color:#000080;">Mashable</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.prnewswire.com/news-releases/dne-studios--nonna-de-la-pena-pushes-boundaries-with-volumetric-4d-storytelling-of-the-1906-atlanta-race-massacre-at-sxsw-302396306.html" target="_blank" style="color:#000080;">Press Release</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1548-1906-atlanta-race-massacre-uses-phone-based-ar-to-volumetrically-tell-a-forgotten-history/" target="_blank" style="color:#000080;">Voices of VR</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://apps.apple.com/us/app/1906-atlanta-ar/id6478511475" target="_blank" style="color:#000080;">App Store →</a></p>
             </div>
             <div id="project-choice" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/choice.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">The Choice</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/choice.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">The Choice</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>VR Documentary</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">Infinite Frame Media</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://www.thechoice-vr.com" target="_blank" style="color:#000080;">thechoice-vr.com</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">VR • Meta Quest</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">VR documentary with volumetric video and Quill illustrations. Optimized for Quest 1. SXSW 2022 Audience Award winner.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Groundbreaking VR documentary series exploring reproductive rights with empathy and intimacy.</b> Multi-chapter experience that challenges stigma and fosters understanding through immersive storytelling about personal agency and complex reproductive decisions.</p>
+              <p style="margin:8px 0; font-size:11px;">Features stereoscopic volumetric video for intimate, conversation-like interactions and minimalist animation. Used as educational tool on campuses and in workshops. Available on Meta Quest platform.</p>
+              <p style="margin:4px 0; font-size:11px;"><b>Awards:</b> SXSW 2022 Audience Award • Games for Change 2022 Best XR Experience • Canadian Screen Awards Finalist • Featured at 20+ international festivals</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://www.thechoice-vr.com" target="_blank" style="color:#000080;">thechoice-vr.com →</a></p>
+              <p style="margin:8px 0; font-size:11px;"><b>Links & Press:</b></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.meta.com/experiences/the-choice/3778279212230624/" target="_blank" style="color:#000080;">Meta Quest Store</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.imdb.com/title/tt7238610/" target="_blank" style="color:#000080;">IMDb</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1547-simulating-one-on-one-conversations-about-abortion-experiences-to-change-minds-with-the-choice-chapters-2-3/" target="_blank" style="color:#000080;">Voices of VR: Chapter 2&3</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://voicesofvr.com/1075-stereoscopic-compositing-innovations-the-choice-interactive-documentary-exploring-reproductive-rights-in-texas/" target="_blank" style="color:#000080;">Voices of VR: Compositing</a></p>
+              <p style="margin:4px 0; font-size:11px;">• <a href="https://www.austinchronicle.com/features/vr-documentary-invites-you-to-an-intimate-conversation-on-abortion-12125521/" target="_blank" style="color:#000080;">Austin Chronicle</a></p>
             </div>
             <div id="project-vizulingo" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/vizu-logo.png" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">Vizulingo</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/vizu-logo.png" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">Vizulingo</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>Mobile App (XR)</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">Harbinger Creative</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://vizulingo.com" target="_blank" style="color:#000080;">vizulingo.com</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">Mobile • XR • AI</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">Unity mobile app combining AI learning assistants with XR features for English language learning. Integrated ChatGPT API for real-time feedback.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Mobile-first immersive learning platform teaching job skills through storytelling.</b> Designed to build confidence in healthcare, hospitality, and tech sectors without requiring VR headsets or classrooms.</p>
+              <p style="margin:8px 0; font-size:11px;">Features story-based learning with mobile simulations (hospital room, front desk scenarios), AI-powered content, and bite-sized practice sessions. Content reviewed by real educators and built by former NASA engineers.</p>
+              <p style="margin:4px 0; font-size:11px;">Addresses critical workforce gaps: 700K annual healthcare job vacancies, 75% hospitality turnover, 60% ESL student dropout rate.</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://vizulingo.com" target="_blank" style="color:#000080;">vizulingo.com →</a></p>
             </div>
             <div id="project-cplc" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/MCCVR.jpg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">Career Exploration VR</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/MCCVR.jpg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">Career Exploration VR</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>VR Training</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">Baltu Technologies</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" style="color:#000080;">Watch Demo</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">VR • Meta Quest</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">VR workforce exploration app for Maricopa Community Colleges in partnership with Intel and Boeing. Students experience simulated job activities.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>VR workforce exploration app for Maricopa Community Colleges in partnership with Intel and Boeing.</b> Students can experience simulated job activities in aerospace manufacturing, helping them explore career paths before committing to training programs.</p>
+              <p style="margin:8px 0; font-size:11px;">Built for Meta Quest, featuring interactive job simulations that give students hands-on experience with real workplace tasks. Developed to address workforce development needs in semiconductor manufacturing.</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" style="color:#000080;">Watch Demo →</a></p>
             </div>
             <div id="project-superdoc" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="2" width="100" valign="top"><img src="assets/images/superdoc.jpg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">SuperDoc</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/superdoc.jpg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">SuperDoc</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>iPad Application</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">Baltu Technologies</td>
+                </tr>
+                <tr>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">iPad</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">Unity-based knowledge-sharing platform for iPad with multimedia sharing (text, image, video, audio, 3D models). Created automated testing suite.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>"On The Job Knowledge Platform" - Mobile instruction manual for capturing and sharing critical organizational knowledge.</b> As easy as posting a selfie, SuperDoc prevents knowledge loss when employees leave.</p>
+              <p style="margin:8px 0; font-size:11px;">Features step-by-step instructions with images, videos, and 3D models. Real-time content pushes ensure everyone has the latest version. Reduces human error and optimizes expert time.</p>
+              <p style="margin:4px 0; font-size:11px;">Created automated testing suite using AltUnityTester, Appium, and Cucumber. Led scrum ceremonies for 7+ person team.</p>
             </div>
             <div id="project-sundial" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/sundial.png" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">Sundial</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/sundial.png" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">Sundial</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>iOS App</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">State Farm RED Labs</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#000080;">State Farm Newsroom</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">iOS</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">Social iOS app integrating Alexa voice services, real-time communication, and wellness monitoring for senior care market. Accessibility features for iPad/iPhone.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Mobile app and Alexa skill helping older adults live independently while staying connected.</b> Sundial enables aging in place by connecting seniors with their "Care Circle" of family and friends.</p>
+              <p style="margin:8px 0; font-size:11px;">Features daily activities and reminders, photo sharing with personalized captions to Echo Show, care circle coordination, and check-ins. Simple interface designed for users who aren't tech-savvy.</p>
+              <p style="margin:4px 0; font-size:11px;">Addresses demographic shift: by 2030, 1 in 5 U.S. residents will be retirement age, and 3 out of 4 older adults want to stay in their homes.</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#000080;">Press Release →</a></p>
             </div>
             <div id="project-sfvr" class="project-detail" style="display:none;">
-              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+              <table cellpadding="2" cellspacing="0" style="font-size:11px; width:100%;">
                 <tr>
-                  <td rowspan="3" width="100" valign="top"><img src="assets/images/insurance-vr.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
-                  <td colspan="2"><h3 style="margin:0; color:#000080;">State Farm Agent Training VR</h3></td>
+                  <td rowspan="4" width="160" valign="top"><img src="assets/images/insurance-vr.jpeg" style="width:180px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="3"><h3 style="margin:0; color:#000080;">State Farm XR Training</h3></td>
+                </tr>
+                <tr style="height:16px;">
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td width="50"><b>Type:</b></td>
-                  <td>VR Training</td>
+                  <td width="70"><b>Company:</b></td>
+                  <td colspan="2">State Farm RED Labs</td>
                 </tr>
                 <tr>
-                  <td><b>Link:</b></td>
-                  <td><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#000080;">Press Release</a></td>
+                  <td width="70"><b>Platform:</b></td>
+                  <td colspan="2">VR • Windows MR</td>
                 </tr>
               </table>
-              <p style="margin:8px 0; font-size:11px;">Experimental VR training applications with in-game handheld camera, scoring system, and LIV integration for green screen compositing in OBS.</p>
+              <p style="margin:8px 0; font-size:11px;"><b>Pioneering VR training and innovation initiatives at State Farm.</b> Part of State Farm's technology exploration in their 100th year, developing immersive experiences for training agents.</p>
+              <p style="margin:8px 0; font-size:11px;">Projects included VR for small business insurance quoting, in-game handheld camera system, scoring mechanics, and LIV integration pipeline for green screen compositing in OBS.</p>
+              <p style="margin:4px 0; font-size:11px;">Also conducted research on gig economy driving systems and developed automated integration test suite for customer authentication.</p>
+              <p style="margin:4px 0; font-size:11px;"><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#000080;">Press Release →</a></p>
             </div>
           </div>
         </div>
@@ -944,6 +1166,23 @@
       });
 
       document.addEventListener('mouseup', () => dragging = false);
+    });
+
+    // ===== Tab Navigation =====
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active from all tabs
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        // Add active to clicked tab
+        btn.classList.add('active');
+        const tabId = `tab-${btn.dataset.tab}`;
+        const tabContent = document.getElementById(tabId);
+        if (tabContent) {
+          tabContent.classList.add('active');
+        }
+      });
     });
 
     // ===== Project Folder Selection =====
