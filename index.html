@@ -933,6 +933,30 @@
 
       .pdf-toolbar {
         gap: 2px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+      }
+
+      .pdf-toolbar .tool-btn {
+        flex: 1;
+        min-width: 60px;
+        padding: 8px;
+        font-size: 10px;
+      }
+
+      .pdf-toolbar .tool-btn::after {
+        content: attr(title);
+        margin-left: 4px;
+        font-size: 10px;
+        font-weight: normal;
+      }
+
+      .pdf-status {
+        display: none;
+      }
+
+      .pdf-toolbar-spacer {
+        display: none;
       }
 
       .title-bar {
@@ -1456,7 +1480,7 @@
           <span class="pdf-status">Use browser controls to zoom/navigate</span>
         </div>
         <div class="pdf-frame-wrapper">
-          <iframe id="pdf-frame" src="hannah_estes_resume.pdf#view=FitH" class="pdf-frame"></iframe>
+          <iframe id="pdf-frame" src="hannah_estes_resume.pdf" class="pdf-frame"></iframe>
         </div>
       </div>
     </div>
@@ -1577,6 +1601,15 @@
         // Special handling for LinkedIn - open in new tab
         if (icon.dataset.window === 'linkedin') {
           window.open('https://www.linkedin.com/in/hannahmestes/', '_blank');
+          return;
+        }
+
+        // Special handling for Resume on mobile - just download
+        if (icon.dataset.window === 'resume' && window.innerWidth <= 600) {
+          const link = document.createElement('a');
+          link.href = 'hannah_estes_resume.pdf';
+          link.download = 'hannah_estes_resume.pdf';
+          link.click();
           return;
         }
 
