@@ -747,6 +747,7 @@
         flex: 1;
         overflow-y: auto;
         min-height: 0;
+        padding-bottom: 20px;
       }
 
       .controls button {
@@ -1536,11 +1537,35 @@
     });
 
     // Offset window positions so they don't all stack
-    let windowOffset = 0;
+    let windowOffset = { x: 0, y: 0 };
     function offsetWindowPosition(win) {
-      windowOffset = (windowOffset + 30) % 200;
-      win.style.left = `${120 + windowOffset}px`;
-      win.style.top = `${100 + windowOffset}px`;
+      // Get viewport and window dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const winWidth = win.offsetWidth;
+      const winHeight = win.offsetHeight;
+
+      // Calculate base position with offset
+      let newLeft = 120 + windowOffset.x;
+      let newTop = 100 + windowOffset.y;
+
+      // Increment offset for next window (with wraparound)
+      windowOffset.x = (windowOffset.x + 30) % 250;
+      windowOffset.y = (windowOffset.y + 30) % 200;
+
+      // Ensure window stays within viewport bounds
+      // Leave some padding (40px) for taskbar at bottom
+      const maxLeft = viewportWidth - winWidth - 20;
+      const maxTop = viewportHeight - winHeight - 60;
+
+      // Constrain position
+      if (newLeft > maxLeft) newLeft = Math.max(20, maxLeft - 100);
+      if (newTop > maxTop) newTop = Math.max(20, maxTop - 100);
+      if (newLeft < 20) newLeft = 20;
+      if (newTop < 20) newTop = 20;
+
+      win.style.left = `${newLeft}px`;
+      win.style.top = `${newTop}px`;
     }
 
     // Gallery image click to open in image viewer window
