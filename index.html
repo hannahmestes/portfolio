@@ -356,16 +356,22 @@
       cursor: pointer;
       font-size: 11px;
       border: 1px solid transparent;
+      border-radius: 3px;
+      transition: all 0.2s ease;
     }
 
     .project-folder:hover {
-      background: #6b5b95;
+      background: linear-gradient(145deg, #9d8dc4, #6b5b95);
       color: #fff;
+      box-shadow: 0 0 8px rgba(107, 91, 149, 0.5);
+      border: 1px solid #f0e6ff;
     }
 
     .project-folder.active {
-      background: #6b5b95;
+      background: linear-gradient(145deg, #6b5b95, #4a2c7a);
       color: #fff;
+      box-shadow: 0 0 12px rgba(107, 91, 149, 0.7);
+      border: 1px solid #f0e6ff;
     }
 
     .project-folder img {
@@ -376,6 +382,7 @@
     .project-content {
       padding: 8px;
       display: block;
+      background: linear-gradient(135deg, rgba(107, 91, 149, 0.1), rgba(74, 44, 122, 0.05));
     }
 
     .project-detail h3 {
@@ -388,6 +395,14 @@
 
     .project-detail li {
       margin-bottom: 2px;
+    }
+
+    .project-detail {
+      max-height: 450px;
+      overflow-y: auto;
+      padding-right: 4px;
+      background: rgba(240, 230, 255, 0.1);
+      border-radius: 4px;
     }
 
     /* ===== Taskbar ===== */
@@ -566,18 +581,20 @@
     }
 
     .card-spread {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      gap: 20px;
       padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
     .tarot-card {
-      width: 200px;
-      height: 280px;
+      width: 180px;
+      height: 324px;
       perspective: 1000px;
       cursor: pointer;
     }
@@ -599,7 +616,7 @@
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      border-radius: 8px;
+      border-radius: 4px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
@@ -610,40 +627,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 0;
       text-align: center;
+      overflow: hidden;
     }
 
-    .tarot-card-front::before {
-      content: "";
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      right: 5px;
-      bottom: 5px;
-      border: 1px solid #9d8dc4;
-      border-radius: 4px;
-    }
-
-    .tarot-card-icon {
-      font-size: 36px;
-      margin-bottom: 8px;
-    }
-
-    .tarot-card-title {
-      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: bold;
-      color: #f0e6ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .tarot-card-subtitle {
-      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
-      font-size: 9px;
-      color: #e6d6ff;
-      margin-top: 4px;
+    .tarot-card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
     }
 
     .tarot-card-back {
@@ -655,6 +648,7 @@
       font-size: 10px;
       color: #2d1b4e;
       line-height: 1.4;
+      border-radius: 4px;
     }
 
     .tarot-card-back::-webkit-scrollbar {
@@ -855,9 +849,7 @@
             <div class="tarot-card" data-card="seeker">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
-                  <div class="tarot-card-icon">🔮</div>
-                  <div class="tarot-card-title">The Seeker</div>
-                  <div class="tarot-card-subtitle">Who I Am</div>
+                  <img src="assets/images/tarot/seeker.png" alt="The Seeker" />
                 </div>
                 <div class="tarot-card-back">
                   <h4>The Seeker</h4>
@@ -872,9 +864,7 @@
             <div class="tarot-card" data-card="professional">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
-                  <div class="tarot-card-icon">🏛️</div>
-                  <div class="tarot-card-title">The Professional</div>
-                  <div class="tarot-card-subtitle">Work History</div>
+                  <img src="assets/images/tarot/professional.png" alt="The Professional" />
                 </div>
                 <div class="tarot-card-back">
                   <h4>The Professional</h4>
@@ -897,9 +887,7 @@
             <div class="tarot-card" data-card="developer">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
-                  <div class="tarot-card-icon">⚡</div>
-                  <div class="tarot-card-title">The Developer</div>
-                  <div class="tarot-card-subtitle">Technical Skills</div>
+                  <img src="assets/images/tarot/developer.png" alt="The Developer" />
                 </div>
                 <div class="tarot-card-back">
                   <h4>The Developer</h4>
@@ -916,16 +904,14 @@
               </div>
             </div>
 
-            <!-- The Creator Card -->
+            <!-- The Champion Card -->
             <div class="tarot-card" data-card="creator">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
-                  <div class="tarot-card-icon">🎨</div>
-                  <div class="tarot-card-title">The Creator</div>
-                  <div class="tarot-card-subtitle">Awards</div>
+                  <img src="assets/images/tarot/champion.png" alt="The Champion" />
                 </div>
                 <div class="tarot-card-back">
-                  <h4>The Creator</h4>
+                  <h4>The Champion</h4>
                   <p><b>Recognition & Awards:</b></p>
                   <ul>
                     <li>2025 Telly Award - Volumetric Capture (1906)</li>
@@ -939,32 +925,11 @@
               </div>
             </div>
 
-            <!-- The Student Card -->
-            <div class="tarot-card" data-card="student">
-              <div class="tarot-card-inner">
-                <div class="tarot-card-front">
-                  <div class="tarot-card-icon">📚</div>
-                  <div class="tarot-card-title">The Student</div>
-                  <div class="tarot-card-subtitle">Education</div>
-                </div>
-                <div class="tarot-card-back">
-                  <h4>The Student</h4>
-                  <p><b>Texas Tech University</b><br><i>2016 — 2019</i></p>
-                  <p>Bachelor of Science in Computer Science</p>
-                  <p><b>Summa cum laude</b></p>
-                  <p>Highest Ranking Graduate</p>
-                  <p style="margin-top:8px; font-size:9px; color:#808080;">4.0 GPA</p>
-                </div>
-              </div>
-            </div>
-
             <!-- The Innovator Card -->
             <div class="tarot-card" data-card="innovator">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
-                  <div class="tarot-card-icon">💡</div>
-                  <div class="tarot-card-title">The Innovator</div>
-                  <div class="tarot-card-subtitle">Patents</div>
+                  <img src="assets/images/tarot/innovator.png" alt="The Innovator" />
                 </div>
                 <div class="tarot-card-back">
                   <h4>The Innovator</h4>
@@ -973,6 +938,23 @@
                   <p style="margin-top:8px;"><i>Systems and Methods of Gig-Economy Fleet Mobilization</i></p>
                   <p style="margin-top:8px;">Novel system for automatic detection and optimization of gig-economy fleet operations through advanced data processing algorithms.</p>
                   <p style="margin-top:8px;"><b>Holders:</b> Hannah Estes et al.<br><b>Assignee:</b> State Farm</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- The Student Card -->
+            <div class="tarot-card" data-card="student">
+              <div class="tarot-card-inner">
+                <div class="tarot-card-front">
+                  <img src="assets/images/tarot/student.png" alt="The Student" />
+                </div>
+                <div class="tarot-card-back">
+                  <h4>The Student</h4>
+                  <p><b>Texas Tech University</b><br><i>2016 — 2019</i></p>
+                  <p>Bachelor of Science in Computer Science</p>
+                  <p><b>Summa cum laude</b></p>
+                  <p>Highest Ranking Graduate</p>
+                  <p style="margin-top:8px; font-size:9px; color:#808080;">4.0 GPA</p>
                 </div>
               </div>
             </div>
@@ -1030,7 +1012,7 @@
             </tr>
             <tr>
               <td align="right"><b>GitHub:</b></td>
-              <td><a href="https://github.com/hannahwritescode" target="_blank" style="color:#6b5b95;">hannahwritescode</a></td>
+              <td><a href="https://github.com/hannahmestes" target="_blank" style="color:#6b5b95;">hannahmestes</a></td>
             </tr>
           </table>
         </fieldset>
@@ -1583,29 +1565,12 @@
     updateClock();
     setInterval(updateClock, 1000);
 
-    // ===== Card Flip Sound (Web Audio API) =====
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    function playFlipSound() {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
-
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.1);
-    }
-
+    // ===== Card Flip Sound =====
     document.querySelectorAll('.tarot-card').forEach(card => {
       card.addEventListener('click', () => {
-        playFlipSound();
+        const flipSound = new Audio('assets/audio/Card-flip-sound-effect.mp3');
+        flipSound.volume = 0.5;
+        flipSound.play().catch(() => {});
         card.classList.toggle('flipped');
       });
     });
