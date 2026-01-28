@@ -761,7 +761,6 @@
         flex: 1;
         overflow-y: auto;
         min-height: 0;
-        padding-bottom: 30px;
       }
 
       .controls button {
@@ -1672,12 +1671,13 @@
     const openImageViewers = {}; // Track open images by source
 
     document.querySelectorAll('.gallery-item').forEach(item => {
-      item.addEventListener('click', () => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
         const imgSrc = item.getAttribute('data-img');
         const imgTitle = item.getAttribute('data-title');
 
         // Check if image is already open
-        if (openImageViewers[imgSrc]) {
+        if (openImageViewers[imgSrc] && document.body.contains(openImageViewers[imgSrc])) {
           // Focus existing window instead of opening new one
           focusWindow(openImageViewers[imgSrc]);
           return;
@@ -1710,10 +1710,12 @@
 
         // Attach close button handler
         const closeBtn = viewer.querySelector('[data-close]');
-        closeBtn.addEventListener('click', () => {
-          viewer.style.display = 'none';
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
           const task = document.querySelector(`.task[data-win="${viewerId}"]`);
           if (task) task.remove();
+          // Remove viewer from DOM
+          viewer.remove();
           // Remove from open viewers tracker
           delete openImageViewers[imgSrc];
         });
