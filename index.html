@@ -1,1544 +1,980 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio of Hannah Estes, showcasing my XR and iOS development skills.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hannah Estes – Portfolio OS</title>
 
-  <title>Hannah Estes</title>
+  <!-- Windows 98–inspired Styling -->
+  <style>
+    :root {
+      --bg: #008080;
+      --window-bg: #c0c0c0;
+      --border-dark: #404040;
+      --border-light: #ffffff;
+      --border-mid: #808080;
+      --title-active: #000080;
+      --title-inactive: #808080;
+      --text: #000000;
+      --taskbar: #c0c0c0;
+    }
 
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/icon.ico" type="image/x-icon">
+    * { box-sizing: border-box; user-select: none; }
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
+      background: var(--bg);
+      overflow: hidden;
+    }
 
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    /* ===== Desktop ===== */
+    #desktop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 40px);
+      padding: 16px;
+    }
+
+    .icon {
+      width: 72px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 24px;
+      cursor: default;
+      word-wrap: break-word;
+    }
+
+    .icon span {
+      display: block;
+      font-size: 11px;
+      text-shadow: 1px 1px #000;
+      line-height: 1.2;
+      max-width: 72px;
+      overflow-wrap: break-word;
+    }
+
+    .icon img {
+      width: 32px;
+      height: 32px;
+      display: block;
+      margin: 0 auto 6px;
+      image-rendering: pixelated;
+    }
+
+    .icon span {
+      font-size: 11px;
+      text-shadow: 1px 1px #000;
+    }
+
+    /* ===== Windows ===== */
+    .window {
+      position: absolute;
+      top: 120px;
+      left: 120px;
+      width: 500px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      display: none;
+    }
+
+    .window.active .title-bar {
+      background: linear-gradient(to right, var(--title-active), #0000aa);
+    }
+
+    .window.inactive .title-bar {
+      background: linear-gradient(to right, var(--title-inactive), #a0a0a0);
+    }
+
+    .title-bar {
+      color: #fff;
+      padding: 3px 4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      cursor: move;
+    }
+
+    .title {
+      flex: 1;
+      padding-left: 4px;
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      gap: 2px;
+    }
+
+    .controls button {
+      width: 16px;
+      height: 14px;
+      padding: 0;
+      font-size: 10px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      cursor: default;
+    }
+
+    .window-content {
+      padding: 10px;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    /* ===== Explorer ===== */
+    .explorer {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      height: 220px;
+      border: 2px inset var(--border-mid);
+      background: #fff;
+    }
+
+    .explorer-sidebar {
+      background: #dcdcdc;
+      padding: 6px;
+      font-size: 11px;
+      border-right: 2px inset var(--border-mid);
+    }
+
+    .explorer-files {
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 64px);
+      gap: 12px;
+    }
+
+    .file {
+      text-align: center;
+      font-size: 11px;
+      cursor: default;
+    }
+
+    .file img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 4px;
+    }
+
+    /* ===== Gallery Grid ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .gallery-item {
+      text-align: center;
+      cursor: pointer;
+      padding: 4px;
+      border: 2px solid transparent;
+    }
+
+    .gallery-item:hover {
+      background: #000080;
+      border: 2px inset #808080;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      color: #fff;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      border: 2px inset #808080;
+      image-rendering: auto;
+    }
+
+    .gallery-caption {
+      font-size: 10px;
+      margin-top: 4px;
+      word-break: break-all;
+      color: #000;
+    }
+
+    /* ===== Image Viewer Window ===== */
+    .image-viewer-container {
+      background: #808080;
+      padding: 4px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-viewer-container img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      border: 2px inset #808080;
+      object-fit: contain;
+    }
+
+    /* ===== Project Folders ===== */
+    .project-folder {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      border: 1px solid transparent;
+    }
+
+    .project-folder:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .project-folder.active {
+      background: #000080;
+      color: #fff;
+    }
+
+    .project-folder img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .project-content {
+      padding: 8px;
+      display: block;
+    }
+
+    .project-detail h3 {
+      font-size: 14px;
+    }
+
+    .project-detail p {
+      line-height: 1.4;
+    }
+
+    .project-detail li {
+      margin-bottom: 2px;
+    }
+
+    /* ===== Taskbar ===== */
+    #taskbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: var(--taskbar);
+      border-top: 2px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      gap: 6px;
+    }
+
+    #start {
+      font-weight: bold;
+      padding: 4px 10px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+    }
+
+    .task {
+      padding: 4px 8px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      font-size: 11px;
+      cursor: default;
+    }
+
+    /* ===== Document Viewer Toolbar Buttons ===== */
+    .tool-btn {
+      width: 22px;
+      height: 22px;
+      background: var(--window-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-btn:active {
+      box-shadow: inset 1px 1px var(--border-mid), inset -1px -1px var(--border-light);
+    }
+
+    .tool-btn:hover {
+      background: #d0d0d0;
+    }
+
+    /* ===== PDF Viewer Specifics ===== */
+    .pdf-toolbar {
+      background: var(--window-bg);
+      border: 2px inset var(--border-mid);
+      padding: 4px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-toolbar-spacer {
+      flex: 1;
+    }
+
+    .pdf-status {
+      font-size: 11px;
+      color: #808080;
+    }
+
+    .pdf-frame-wrapper {
+      border: 2px inset var(--border-mid);
+      background: #fff;
+      height: 600px;
+      overflow: auto;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 600px) {
+      #desktop {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 8px;
+      }
+
+      .icon {
+        width: 64px;
+        margin-bottom: 0;
+      }
+
+      .window {
+        position: fixed;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: calc(100% - 40px);
+        max-width: none;
+      }
+
+      .pdf-frame-wrapper {
+        height: calc(100% - 80px);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-height: none;
+        height: calc(100% - 60px);
+      }
+
+      .pdf-toolbar {
+        gap: 2px;
+      }
+
+      .title-bar {
+        touch-action: none;
+      }
+
+      #taskbar {
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!--
-    - #MAIN
-  -->
-
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="" alt="Hannah Estes" width="80" id="avatar" class="avatar-img" data-nav-link="about">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Hannah Estes">Hannah Estes</h1>
-
-          <p class="title">XR Developer</p>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item"><!-- email -->
-
-            <div class="icon-box">
-              <ion-icon name="mail"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:hannahwritescode@gmail.com" class="contact-link">hannahwritescode@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item"><!-- phone -->
-
-            <div class="icon-box">
-              <ion-icon name="call"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="tel:+14802985039" class="contact-link">+1 (480) 298-5039</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item"> <!-- location -->
-
-            <div class="icon-box">
-              <ion-icon name="location"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Phoenix, Arizona, USA (open to relocation)</address>
-            </div>
-
-          </li>
-
-          <li class="contact-item"> <!-- linkedin -->
-
-            <div class="icon-box">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">LinkedIn</p>
-
-              <a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" rel="noopener noreferrer" class="contact-link" >hannahmestes</a>
-            </div>
-
-          </li>
-
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-          <!-- <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Art</button>
-          </li> -->
-
-          <!-- <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li> -->
-
-        </ul>
-
-      </nav>
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            Hi! I'm Hannah. I'm a software developer with 8+ years of experience creating virtual reality, mobile, and web applications within enterprise and startup environments for a wide variety of client and customer needs.
-          </p>
-
-          <p>
-            I love creating immersive apps and experiences with purpose and playing with the latest XR toys and spatial computing technologies. 
-          </p>
-
-          <p>
-            When I'm not at the computer or inside of a headset, you can find me taking classes at the arts center or enjoying live music somewhere in Phoenix.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What I Do</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <!-- <img src="./assets/images/icon-design.svg
-                " alt="xr icon" width="40"> -->
-                <ion-icon name="logo-apple-ar"></ion-icon>
-
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">XR Development</h4>
-
-                <p class="service-item-text">
-                  Using the latest technologies to create powerful immersive experiences. 5+ years experience developing VR experiences and simulations with Unity.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <!-- <img src="./assets/images/icon-dev.svg" alt="spatial computing icon" width="40"> -->
-                <ion-icon name="hardware-chip-outline"></ion-icon>
-
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Agentic AI</h4>
-
-                <p class="service-item-text">
-                  Building and researching intelligent agents for a new generation of sales, education, and training applications. Integrating AI features and designing agentic systems.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <!-- <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40"> -->
-                <ion-icon name="phone-portrait-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
-
-                <p class="service-item-text">
-                  5+ years experience developing and distributing iOS apps using a variety of native and cross-platform tools including Unity, Swift, and Ionic.
-                </p>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <!-- <img src="./assets/images/icon-design.svg" alt="design icon" width="40"> -->
-                <ion-icon name="library-outline"></ion-icon>
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Education & Storytelling</h4>
-
-                <p class="service-item-text">
-                  Building engaging experiences to enhance learning outcomes. 6+ years of experience creating award winning documentaries and workforce education for several Fortune 500 companies. 
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">Top Skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Unity</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">iOS</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Agentic AI</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Automated Testing</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Cross-Platform Development</h5>
-                <data value="90">90%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-      </article>
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section >
-          <a href="https://drive.google.com/uc?export=download&id=1QQBBUoc1THFbNc10j_3sCFI88Fdnjmwv" class="resume-link" target="_blank" rel="noopener noreferrer">            
-            Download PDF 
-            <ion-icon name="download"></ion-icon>
-          </a>
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="briefcase"></ion-icon>
-            </div>
-
-            <h3 class="h3">Work Experience</h3>
-          </div>
-
-          <!-- Jobs -->
-          <ol class="timeline-list">
-            <!-- EHMA Fintech -->
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Mobile Developer @ EHMA Fintech</h4>
-
-              <span>2025 — Current</span>
-
-              <p class="timeline-text">
-                - Research and develop AI agent systems for direct-to-consumer solar sales applications<br>
-                - Build AI-powered sales agent leveraging natural language processing and machine learning<br>
-                - Integrate advanced AI capabilities into mobile fintech applications for enhanced customer engagement<br>
-                <i>*Currently in early development phase building next-generation AI sales platform*</i>
-              </p>
-
-            </li>
-            <!-- Harbinger -->
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Lead Developer @ Harbinger Creative</h4>
-
-              <span>2024 — 2025</span>
-
-              <p class="timeline-text">
-                - Provide technical consultation and leadership for educational XR experiences and AI-powered learning platforms<br>
-                - Developed "Vizulingo" - Unity mobile application combining AI learning assistants with XR features for English language learning<br>
-                - Integrated ChatGPT API to provide real-time feedback for students completing job training<br>
-                <i>*Currently in pilot phase with early users testing the educational platform*</i>
-              </p>
-
-            </li>
-            <!-- Baltu -->
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Lead Developer @ Baltu Technologies</h4>
-
-              <span>2021 — 2024</span>
-
-              <p class="timeline-text">
-                - Led development of Superdoc, Unity-based knowledge-sharing platform for iPad with multimedia sharing and capture (text, image, video, audio, 3D models)<br>
-                - Developed several VR applications for Meta Quest including aerospace facility simulation for Fortune 500 client<br>
-                - Created workforce exploration VR application for Maricopa Community Colleges in partnership with Intel and Boeing, allowing students to experience simulated job activities<br>
-                - Designed and implemented automated testing suite using AltUnityTester, Appium, and Cucumber<br>
-                - Established formalized testing process reducing need for manual testing across development team<br>
-                - Planned and led all scrum ceremonies, delegating tasks across internal teams and contractors, 7+ people at times.
-              </p>
-
-            </li>
-            <!-- SF Combined -->
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">iOS Developer & XR Research Intern @ State Farm</h4>
-
-              <span>2015 — 2021</span>
-
-              <p class="timeline-text">
-                <strong>Production Development (2020-2021):</strong><br>
-                - Developed social iOS application integrating Alexa voice services, real-time communication, and wellness monitoring for senior care market<br>
-                - Implemented accessibility features and responsive design for iPad and iPhone<br>
-                - Conducted research related to gig economy driving and designed systems for better educating and studying gig drivers.<br><br>
-
-                <strong>XR Research & Development (2015-2019):</strong><br>
-                - Implemented core functional features for experimental VR training applications, including an in-game handheld camera and scoring system<br>
-                - Developed LIV integration pipeline for Unity applications enabling green screen compositing in OBS<br>
-                - Created mixed reality capture workflow allowing development team to easily record demonstrations of prototypes
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <!-- Projects -->
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="heart"></ion-icon>
-            </div>
-
-            <h3 class="h3">Projects</h3>
-          </div>
-
-          <ol class="timeline-list">
-            <!-- 1906 -->
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">1906 Atlanta Race Massacre @ Emblematic Group</h4>
-
-              <span>2024 — 2025</span>
-
-              <p class="timeline-text">
-                - Completed development of '1906' AR documentary for iOS/Android for National Center for Civil and Human Rights<br>
-                - Overhauled application architecture and developed key features including interactable maps and historical artifacts and accessibility considerations<br>
-                - Integrated deepfake videos, mocap animations, Quill art with volumetric video recorded at Metastage<br>
-                <i>*Selected for premiere at SXSW 2025*</i>
-              </p>
-
-            </li>
-            <!-- Choice -->
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">The Choice @ Infinite Frame Media</h4>
-
-              <span>2020 — 2025</span>
-
-              <p class="timeline-text">
-                - Developed VR documentary experience incorporating a novel volumetric video system and animated Quill illustrations<br>
-                - Designed and implemented flexible event framework using Unity's visual scripting system<br>
-                - Optimized video loading and playback system for hiqh-quality volumetric videos on Quest 1<br>
-                - Created intuitive narrative flow management system for creative partners<br>
-                <i>*Chapter 1 available on Meta App Store | SXSW 2022 Audience Award Winner*</i>
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <!-- patents -->
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="bulb"></ion-icon>
-            </div>
-
-            <h3 class="h3">Patents</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Systems and Methods of Gig-Economy Fleet Mobilization</h4>
-
-              <p class="contact-title">Patent No. US-20240182600-A1</p>
-              <span>2024</span>
-
-              <p class="timeline-text">
-                Hannah Estes et al. (State Farm) - Novel system for automatic detection and optimization of gig-economy fleet operations through advanced data processing algorithms
-              </p>
-            </li>
-
-          </ol>
-
-        </section>
-
-        <!-- awards -->
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="trophy"></ion-icon>
-            </div>
-
-            <h3 class="h3">Awards & Recognition</h3>
-          </div>
-
-          <ol class="timeline-list">
-            <li class="timeline-item">
-              <span>2025</span>
-              <p class="timeline-text">Telly Award for Volumetric Capture Craft - 1906</p>
-            </li>
-            <li class="timeline-item">
-              <span>2025</span>
-              <p class="timeline-text">SXSW Official Selection - 1906</p>
-            </li>
-            <li class="timeline-item">
-              <span>2025</span>
-              <p class="timeline-text">SXSW Official Selection - The Choice (Chapters 2&3)</p>
-            </li>
-            <li class="timeline-item">
-              <span>2023</span>
-              <p class="timeline-text">Canadian Screen Award Nomination - The Choice (Chapter 1)</p>
-            </li>
-            <li class="timeline-item">
-              <span>2022</span>
-              <p class="timeline-text">SXSW Audience Award - The Choice (Chapter 1)</p>
-            </li>
-            <li class="timeline-item">
-              <span>2022</span>
-              <p class="timeline-text">Games for Change Best XR for Change Experience - The Choice (Chapter 1)</p>
-            </li>
-          </ol>
-
-        </section>
-
-        <!-- education -->
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="school"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Texas Tech University</h4>
-
-              <span>2016 — 2019</span>
-
-              <p class="timeline-text">
-                Bachelor of Science in Computer Science, Summa cum laude<br>
-                Highest Ranking Graduate, 4.0/4.0 GPA
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-      </article>
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>XR</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Other</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>XR</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Other</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <!-- Viz -->
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="https://vizulingo.com" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/vizu-logo.png" alt="Insurance Training XR" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Vizulingo</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <!-- Choice -->
-            <li class="project-item  active" data-filter-item data-category="xr">
-              <a href="https://www.thechoice-vr.com" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/choice.jpeg" alt="The Choice" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">The Choice</h3>
-
-                <p class="project-category">XR</p>
-
-              </a>
-            </li>
-
-            <!-- 1906 -->
-            <li class="project-item  active" data-filter-item data-category="xr">
-              <a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/1906.jpeg" alt="1906 Atlanta Race Massacre" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">1906 Atlanta Race Massacre</h3>
-
-                <p class="project-category">XR</p>
-
-              </a>
-            </li>
-
-            <!-- CPLC -->
-            <li class="project-item  active" data-filter-item data-category="xr">
-              <a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="logo-youtube"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/MCCVR.jpg" alt="career exploration VR" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Career Exploration VR</h3>
-
-                <p class="project-category">XR</p>
-
-              </a>
-            </li>
-
-            <!-- Superdoc -->
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="https://baltutech.com/product/" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/superdoc.jpg" alt="superdoc" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">SuperDoc</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <!-- Sundial -->
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="https://appadvice.com/app/sundial/1514459099" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/sundial.png" alt="sundial" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Sundial</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <!-- BLTVR -->
-            <li class="project-item  active" data-filter-item data-category="xr">
-              <a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/insurance-vr.jpeg" alt="Insurance Training XR" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">State Farm Agent Training VR</h3>
-
-                <p class="project-category">XR</p>
-
-              </a>
-            </li>
-
-            <li class="project-item active" data-filter-item data-category="other">
-              <a data-nav-link="art">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="open-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/glass-thumbnail.jpeg" alt="Glass Bubble Grid Dish" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Art</h3>
-
-                <p class="project-category">Other</p>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-      <!--
-        - #ART GALLERY
-      -->
-
-      <article class="art" data-page="art">
-
-        <header>
-          <h2 class="h2 article-title">Art Gallery</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <!-- dune plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <a class="blog-banner-box">
-                  <img src="./assets/images/dune-plate.jpeg" alt="Dune inspired glass art plate" loading="lazy">
-                </a>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Paul and Shai-Hulud</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- bubble dish -->
-            <li class="blog-post-item">
-              <div>
-
-                <a class="blog-banner-box">
-                  <img src="./assets/images/glass-grid-stand.jpeg" alt="Circular Glass Bubble Grid" loading="lazy">
-                </a>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Bubble Grid Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Lemon -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/glass-lemon-stand.jpeg" alt="Fused glass lemon slice" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Lemon Slice Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- heart stick -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/heart-stick.jpeg" alt="red and clear glass stir stick in a glass cup" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Stir My Heart</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Emerald Tile -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/emerald-tile.jpeg" alt="green geometric fused glass tile" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Emerald Tile</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Berry Diamonds -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/berry-diamonds.jpeg" alt="purple and white fused glass bowl with a diamond pattern" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Berry Diamonds</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- rainbow swirl -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/rainbow-swirl.jpeg" alt="swirled rainbow glass art" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Rainbow Swirl Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- green plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/JewelBricks.jpeg" alt="Green and purple brick pattern fused glass art plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Jewel Bricks Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- cactus plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/SonoranScene.jpeg" alt="desert scene fused glass plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Sonoran Scene Plate</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- rainbow wave -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/rainbowwarp.jpeg" alt="rainbow striped optical patterns stained glass plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Rainbow Warp Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-            <!--
-        - #BLOG
-      -->
-
-      <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <!-- dune plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <a class="blog-banner-box">
-                  <img src="./assets/images/nocloud.png" alt="Grandpa Abe from the Simpsons yelling at a cloud" loading="lazy">
-                </a>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Tech</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">September 5th, 2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">No Cloud No Problem - AI Agents the local way</h3>
-
-                  <p class="blog-text">
-                    intro goes here
-
-                    Requirements:
-                    - Docker
-                    - Python
-                    - uv
-                    - LMStudio
-
-                    Get Chatting
-                    - Install an LLM
-                      - LMStudio is my personal favorite for managing LLMS on my machine
-                    - Install & Run Langflow
-                      - Gives a graph based user interface for building agent flows, no coding needed but can be extended
-                    - Open the Basic Prompting Example and Replace Language model with LMStudio
-                      - Make sure that LMStudio Server is running in the Dev view
-                    - Reconnect and Run
-                      - If you receive an error about the context length, go to the model list in LMStudio to up the context limit
-
-                    Adding a Knowledge Base (RAG)
-                    - Install ElasticSearch
-                      - Requires Docker, the simple install is great to get started locally
-                    - Open up RAG example and replace AstraDB with ElasticSearch
-                    - Replace the Embedder and Model with the LMStudio equivalents
-
-
-
-                  </p>
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- bubble dish -->
-            <li class="blog-post-item">
-              <div>
-
-                <a class="blog-banner-box">
-                  <img src="./assets/images/glass-grid-stand.jpeg" alt="Circular Glass Bubble Grid" loading="lazy">
-                </a>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Bubble Grid Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Lemon -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/glass-lemon-stand.jpeg" alt="Fused glass lemon slice" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2025</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Lemon Slice Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- heart stick -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/heart-stick.jpeg" alt="red and clear glass stir stick in a glass cup" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Stir My Heart</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Emerald Tile -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/emerald-tile.jpeg" alt="green geometric fused glass tile" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Emerald Tile</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- Berry Diamonds -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/berry-diamonds.jpeg" alt="purple and white fused glass bowl with a diamond pattern" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Berry Diamonds</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- rainbow swirl -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/rainbow-swirl.jpeg" alt="swirled rainbow glass art" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2023">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Rainbow Swirl Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- green plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/JewelBricks.jpeg" alt="Green and purple brick pattern fused glass art plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Jewel Bricks Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- cactus plate -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/SonoranScene.jpeg" alt="desert scene fused glass plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Sonoran Scene Plate</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-            <!-- rainbow wave -->
-            <li class="blog-post-item">
-              <div>
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/rainbowwarp.jpeg" alt="rainbow striped optical patterns stained glass plate" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Glass Art</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2025">2023</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Rainbow Warp Dish</h3>
-
-                  <!-- <p class="blog-text">
-                    Fused Glass Art created by Hannah Estes.
-                  </p> -->
-
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-      <!--
-        - #CONTACT
-      -->
-
-      <!-- <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-          <figure>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d199666.5651251294!2d-121.58334177520186!3d38.56165006739519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac672b28397f9%3A0x921f6aaa74197fdb!2sSacramento%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd"
-              width="400" height="300" loading="lazy"></iframe>
-          </figure>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="#" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article> -->
-
+  <div id="desktop">
+    <div class="icon" data-window="about">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='4' width='28' height='18' fill='%23c0c0c0' stroke='%23000'/><rect x='6' y='8' width='20' height='10' fill='%23008080'/><rect x='10' y='24' width='12' height='4' fill='%23808080' stroke='%23000'/></svg>" />
+      <span>About Me</span>
     </div>
 
-  </main>
+    <div class="icon" data-window="projects">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><path d='M2 10h12l2-4h14v20H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+      <span>Projects</span>
+    </div>
+
+    <div class="icon" data-window="contact">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='6' width='28' height='20' fill='%23ffffff' stroke='%23000'/><path d='M2 6l14 10L30 6' stroke='%23000' fill='none'/></svg>" />
+      <span>Contact</span>
+    </div>
+
+    <div class="icon" data-window="resume">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='4' y='2' width='24' height='28' fill='%23ffffff' stroke='%23000'/><line x1='8' y1='8' x2='24' y2='8' stroke='%23000'/><line x1='8' y1='12' x2='24' y2='12' stroke='%23000'/><line x1='8' y1='16' x2='20' y2='16' stroke='%23000'/></svg>" />
+      <span>Resume</span>
+    </div>
+
+    <div class="icon" data-window="gallery">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect x='2' y='4' width='28' height='20' fill='%23ffffff' stroke='%23000'/><circle cx='10' cy='12' r='3' fill='%23008080'/><path d='M6 20l6-6 4 4 6-6 4 8z' fill='%2380c0c0' stroke='%23000'/></svg>" />
+      <span>Gallery</span>
+    </div>
+
+    <!-- About Window -->
+    <div class="window inactive" id="about" data-title="About Hannah">
+      <div class="title-bar">
+        <div class="title">About Hannah</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content">
+        <p>Hi! I'm Hannah. I'm a software developer with 8+ years of experience creating virtual reality, mobile, and web applications within enterprise and startup environments.</p>
+
+        <p>I love creating immersive apps and experiences with purpose and playing with the latest XR toys and spatial computing technologies.</p>
+
+        <p>When I'm not at the computer or inside of a headset, you can find me taking classes at the arts center or enjoying live music somewhere in Phoenix.</p>
+
+        <fieldset style="border:2px inset #808080; padding:8px; margin-top:12px;">
+          <legend><b>What I Do</b></legend>
+          <ul style="margin:6px 0; padding-left:18px; font-size:12px;">
+            <li><b>XR Development</b> - Using the latest technologies to create powerful immersive experiences. 5+ years experience with Unity and VR/AR development.</li>
+            <li><b>Agentic AI</b> - Building and researching intelligent agents for a new generation of sales, education, and training applications.</li>
+            <li><b>Mobile Apps</b> - 5+ years developing and distributing iOS apps using Swift, Unity, and cross-platform tools.</li>
+            <li><b>Education & Storytelling</b> - Creating engaging experiences to enhance learning outcomes for Fortune 500 companies.</li>
+          </ul>
+        </fieldset>
+
+        <fieldset style="border:2px inset #808080; padding:8px; margin-top:8px;">
+          <legend><b>Top Skills</b></legend>
+          <table cellpadding="2" cellspacing="0" style="font-size:12px;">
+            <tr><td width="100">Unity</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+            <tr><td>iOS</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+            <tr><td>Agentic AI</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:70%; height:100%;"></div></div></td></tr>
+            <tr><td>Automated Testing</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:80%; height:100%;"></div></div></td></tr>
+            <tr><td>Cross-Platform</td><td><div style="background:#fff; border:1px inset #808080; width:120px; height:12px;"><div style="background:#000080; width:90%; height:100%;"></div></div></td></tr>
+          </table>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Contact Window -->
+    <div class="window inactive" id="contact" data-title="Contact">
+      <div class="title-bar">
+        <div class="title">Contact - Hannah Estes</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content">
+        <!-- Address Book Card Style -->
+        <fieldset style="border:2px inset #808080; padding:8px; margin-bottom:8px;">
+          <legend><b>Summary</b></legend>
+          <table cellpadding="3" cellspacing="0" style="font-size:12px;">
+            <tr>
+              <td width="80" align="right"><b>Name:</b></td>
+              <td>Hannah Estes</td>
+            </tr>
+            <tr>
+              <td align="right"><b>Title:</b></td>
+              <td>Software Engineer / XR Developer</td>
+            </tr>
+            <tr>
+              <td align="right"><b>Location:</b></td>
+              <td>Phoenix, Arizona, USA <i>(open to relocation)</i></td>
+            </tr>
+          </table>
+        </fieldset>
+
+        <fieldset style="border:2px inset #808080; padding:8px; margin-bottom:8px;">
+          <legend><b>Contact</b></legend>
+          <table cellpadding="3" cellspacing="0" style="font-size:12px;">
+            <tr>
+              <td width="80" align="right"><b>E-mail:</b></td>
+              <td><a href="mailto:hannahwritescode@gmail.com" style="color:#000080;">hannahwritescode@gmail.com</a></td>
+            </tr>
+            <tr>
+              <td align="right"><b>Phone:</b></td>
+              <td><a href="tel:+14802985039" style="color:#000080;">+1 (480) 298-5039</a></td>
+            </tr>
+          </table>
+        </fieldset>
+
+        <fieldset style="border:2px inset #808080; padding:8px;">
+          <legend><b>Links</b></legend>
+          <table cellpadding="3" cellspacing="0" style="font-size:12px;">
+            <tr>
+              <td width="80" align="right"><b>LinkedIn:</b></td>
+              <td><a href="https://www.linkedin.com/in/hannahmestes/" target="_blank" style="color:#000080;">hannahmestes</a></td>
+            </tr>
+            <tr>
+              <td align="right"><b>GitHub:</b></td>
+              <td><a href="https://github.com/hannahwritescode" target="_blank" style="color:#000080;">hannahwritescode</a></td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Projects Window -->
+    <div class="window inactive" id="projects" data-title="Projects">
+      <div class="title-bar">
+        <div class="title">C:\Projects</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content" style="padding:4px;">
+        <div class="explorer">
+          <div class="explorer-sidebar">
+            <div class="project-folder active" data-project="1906">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              1906
+            </div>
+            <div class="project-folder" data-project="choice">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              The Choice
+            </div>
+            <div class="project-folder" data-project="vizulingo">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              Vizulingo
+            </div>
+            <div class="project-folder" data-project="cplc">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              Career VR
+            </div>
+            <div class="project-folder" data-project="superdoc">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              SuperDoc
+            </div>
+            <div class="project-folder" data-project="sundial">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              Sundial
+            </div>
+            <div class="project-folder" data-project="sfvr">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><path d='M2 4h6l2-2h6v12H2z' fill='%23f4d03f' stroke='%23000'/></svg>" />
+              SF Agent VR
+            </div>
+          </div>
+          <div class="explorer-files project-content">
+            <div id="project-1906" class="project-detail">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/1906.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">1906 Atlanta Race Massacre</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>AR Documentary</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://schedule.sxsw.com/2025/films/2206262" target="_blank" style="color:#000080;">SXSW 2025</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">AR experience for National Center for Civil and Human Rights featuring interactable maps, historical artifacts, deepfake videos, mocap animations, and volumetric video.</p>
+            </div>
+            <div id="project-choice" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/choice.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">The Choice</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>VR Documentary</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://www.thechoice-vr.com" target="_blank" style="color:#000080;">thechoice-vr.com</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">VR documentary with volumetric video and Quill illustrations. Optimized for Quest 1. SXSW 2022 Audience Award winner.</p>
+            </div>
+            <div id="project-vizulingo" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/vizu-logo.png" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">Vizulingo</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>Mobile App (XR)</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://vizulingo.com" target="_blank" style="color:#000080;">vizulingo.com</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">Unity mobile app combining AI learning assistants with XR features for English language learning. Integrated ChatGPT API for real-time feedback.</p>
+            </div>
+            <div id="project-cplc" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/MCCVR.jpg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">Career Exploration VR</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>VR Training</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://www.youtube.com/watch?v=sxGHR5co3xM" target="_blank" style="color:#000080;">Watch Demo</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">VR workforce exploration app for Maricopa Community Colleges in partnership with Intel and Boeing. Students experience simulated job activities.</p>
+            </div>
+            <div id="project-superdoc" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="2" width="100" valign="top"><img src="assets/images/superdoc.jpg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">SuperDoc</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>iPad Application</td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">Unity-based knowledge-sharing platform for iPad with multimedia sharing (text, image, video, audio, 3D models). Created automated testing suite.</p>
+            </div>
+            <div id="project-sundial" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/sundial.png" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">Sundial</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>iOS App</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://newsroom.statefarm.com/sundial-points-the-way-to-connected-living/" target="_blank" style="color:#000080;">State Farm Newsroom</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">Social iOS app integrating Alexa voice services, real-time communication, and wellness monitoring for senior care market. Accessibility features for iPad/iPhone.</p>
+            </div>
+            <div id="project-sfvr" class="project-detail" style="display:none;">
+              <table cellpadding="4" cellspacing="0" style="font-size:11px; width:100%;">
+                <tr>
+                  <td rowspan="3" width="100" valign="top"><img src="assets/images/insurance-vr.jpeg" style="width:140px; height:auto; border:2px inset #808080;" /></td>
+                  <td colspan="2"><h3 style="margin:0; color:#000080;">State Farm Agent Training VR</h3></td>
+                </tr>
+                <tr>
+                  <td width="50"><b>Type:</b></td>
+                  <td>VR Training</td>
+                </tr>
+                <tr>
+                  <td><b>Link:</b></td>
+                  <td><a href="https://newsroom.statefarm.com/state-farm-and-the-metaverse/" target="_blank" style="color:#000080;">Press Release</a></td>
+                </tr>
+              </table>
+              <p style="margin:8px 0; font-size:11px;">Experimental VR training applications with in-game handheld camera, scoring system, and LIV integration for green screen compositing in OBS.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Window -->
+    <div class="window inactive" id="resume" data-title="Resume">
+      <div class="title-bar">
+        <div class="title">hannah_estes_resume.pdf</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content" style="padding:4px;">
+        <div class="pdf-toolbar">
+          <button class="tool-btn" onclick="window.open('hannah_estes_resume.pdf', '_blank')" title="Open in New Tab">
+            <svg width="14" height="14" viewBox="0 0 14 14"><rect x="10" y="2" width="2" height="10" fill="#000"/><rect x="6" y="6" width="6" height="2" fill="#000"/><rect x="2" y="10" width="2" height="2" fill="#000"/></svg>
+          </button>
+          <button class="tool-btn" onclick="downloadResume()" title="Download">
+            <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 2v6M5 6l2 2 2-2M2 10h10v2H2z" stroke="#000" fill="none" stroke-width="1.5"/></svg>
+          </button>
+          <button class="tool-btn" onclick="window.print()" title="Print">
+            <svg width="14" height="14" viewBox="0 0 14 14"><rect x="3" y="2" width="8" height="6" fill="none" stroke="#000"/><rect x="5" y="9" width="4" height="3" fill="#000"/><path d="M2 11h10" stroke="#000"/></svg>
+          </button>
+          <div class="pdf-toolbar-spacer"></div>
+          <span class="pdf-status">Use browser controls to zoom/navigate</span>
+        </div>
+        <div class="pdf-frame-wrapper">
+          <iframe id="pdf-frame" src="hannah_estes_resume.pdf" class="pdf-frame"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Window -->
+    <div class="window inactive" id="gallery" data-title="Glass Art Gallery">
+      <div class="title-bar">
+        <div class="title">C:\Art\Glass</div>
+        <div class="controls"><button data-close>x</button></div>
+      </div>
+      <div class="window-content" style="padding:4px;">
+        <div class="gallery-grid">
+          <div class="gallery-item" data-img="assets/images/emerald-tile.jpeg" data-title="emerald_tile.jpeg">
+            <img src="assets/images/emerald-tile.jpeg" alt="Emerald Tile" />
+            <div class="gallery-caption">emerald_tile.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/stir-my-heart.jpeg" data-title="stir_my_heart.jpeg">
+            <img src="assets/images/stir-my-heart.jpeg" alt="Stir My Heart" />
+            <div class="gallery-caption">stir_my_heart.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/berry-diamonds.jpeg" data-title="berry_diamonds.jpeg">
+            <img src="assets/images/berry-diamonds.jpeg" alt="Berry Diamonds" />
+            <div class="gallery-caption">berry_diamonds.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/bubble-grid.jpeg" data-title="bubble_grid.jpeg">
+            <img src="assets/images/bubble-grid.jpeg" alt="Bubble Grid" />
+            <div class="gallery-caption">bubble_grid.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/lemon-slice.jpeg" data-title="lemon_slice.jpeg">
+            <img src="assets/images/lemon-slice.jpeg" alt="Lemon Slice" />
+            <div class="gallery-caption">lemon_slice.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/jewel-bricks.jpeg" data-title="jewel_bricks.jpeg">
+            <img src="assets/images/jewel-bricks.jpeg" alt="Jewel Bricks" />
+            <div class="gallery-caption">jewel_bricks.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/rainbow-swirl.jpeg" data-title="rainbow_swirl.jpeg">
+            <img src="assets/images/rainbow-swirl.jpeg" alt="Rainbow Swirl" />
+            <div class="gallery-caption">rainbow_swirl.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/rainbow-warp.jpeg" data-title="rainbow_warp.jpeg">
+            <img src="assets/images/rainbow-warp.jpeg" alt="Rainbow Warp" />
+            <div class="gallery-caption">rainbow_warp.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/sonoran-scene.jpeg" data-title="sonoran_scene.jpeg">
+            <img src="assets/images/sonoran-scene.jpeg" alt="Sonoran Scene" />
+            <div class="gallery-caption">sonoran_scene.jpeg</div>
+          </div>
+          <div class="gallery-item" data-img="assets/images/dune-plate.jpeg" data-title="dune_plate.jpeg">
+            <img src="assets/images/dune-plate.jpeg" alt="Dune Plate" />
+            <div class="gallery-caption">dune_plate.jpeg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+  <div id="taskbar">
+    <div id="start">Start</div>
+  </div>
 
+  <script>
+    const taskbar = document.getElementById('taskbar');
+    let zCounter = 100;
 
+    function focusWindow(win) {
+      document.querySelectorAll('.window').forEach(w => {
+        w.classList.remove('active');
+        w.classList.add('inactive');
+      });
+      win.classList.add('active');
+      win.classList.remove('inactive');
+      zCounter += 1;
+      win.style.zIndex = zCounter;
+    }
 
+    function addTask(win) {
+      if (document.querySelector(`.task[data-win="${win.id}"]`)) return;
+      const task = document.createElement('div');
+      task.className = 'task';
+      task.dataset.win = win.id;
+      task.textContent = win.dataset.title;
+      task.onclick = () => {
+        win.style.display = 'block';
+        focusWindow(win);
+      };
+      taskbar.appendChild(task);
+    }
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+    document.querySelectorAll('.icon').forEach(icon => {
+      icon.addEventListener('dblclick', () => {
+        const win = document.getElementById(icon.dataset.window);
+        if (!win) return;
+        win.style.display = 'block';
+        addTask(win);
+        focusWindow(win);
+        offsetWindowPosition(win);
+      });
+    });
 
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    // Offset window positions so they don't all stack
+    let windowOffset = 0;
+    function offsetWindowPosition(win) {
+      windowOffset = (windowOffset + 30) % 200;
+      win.style.left = `${120 + windowOffset}px`;
+      win.style.top = `${100 + windowOffset}px`;
+    }
 
+    // Gallery image click to open in image viewer window
+    let imageViewerCount = 0;
+    const openImageViewers = {}; // Track open images by source
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const imgSrc = item.getAttribute('data-img');
+        const imgTitle = item.getAttribute('data-title');
+
+        // Check if image is already open
+        if (openImageViewers[imgSrc]) {
+          // Focus existing window instead of opening new one
+          focusWindow(openImageViewers[imgSrc]);
+          return;
+        }
+
+        // Create new image viewer window
+        imageViewerCount++;
+        const viewerId = `image-viewer-${imageViewerCount}`;
+
+        const viewer = document.createElement('div');
+        viewer.className = 'window active';
+        viewer.id = viewerId;
+        viewer.setAttribute('data-title', imgTitle);
+        viewer.innerHTML = `
+          <div class="title-bar">
+            <div class="title">${imgTitle}</div>
+            <div class="controls"><button data-close>x</button></div>
+          </div>
+          <div class="window-content" style="padding:4px; background:#808080;">
+            <div class="image-viewer-container">
+              <img src="${imgSrc}" alt="${imgTitle}" />
+            </div>
+          </div>
+        `;
+
+        document.getElementById('desktop').appendChild(viewer);
+
+        // Track this image as open
+        openImageViewers[imgSrc] = viewer;
+
+        // Attach close button handler
+        const closeBtn = viewer.querySelector('[data-close]');
+        closeBtn.addEventListener('click', () => {
+          viewer.style.display = 'none';
+          const task = document.querySelector(`.task[data-win="${viewerId}"]`);
+          if (task) task.remove();
+          // Remove from open viewers tracker
+          delete openImageViewers[imgSrc];
+        });
+
+        // Attach drag handler to title bar
+        const titleBar = viewer.querySelector('.title-bar');
+        let offsetX = 0, offsetY = 0, dragging = false;
+
+        titleBar.addEventListener('mousedown', e => {
+          dragging = true;
+          offsetX = e.clientX - viewer.offsetLeft;
+          offsetY = e.clientY - viewer.offsetTop;
+          focusWindow(viewer);
+        });
+
+        document.addEventListener('mousemove', e => {
+          if (!dragging) return;
+          viewer.style.left = `${e.clientX - offsetX}px`;
+          viewer.style.top = `${e.clientY - offsetY}px`;
+        });
+
+        document.addEventListener('mouseup', () => dragging = false);
+
+        // Load image first to get aspect ratio
+        const tempImg = new Image();
+        tempImg.onload = () => {
+          const aspectRatio = tempImg.naturalWidth / tempImg.naturalHeight;
+
+          // Set reasonable base size
+          const baseWidth = 500;
+          const baseHeight = 400;
+
+          // Adjust based on aspect ratio
+          let windowWidth, windowHeight;
+          if (aspectRatio > 1) {
+            // Landscape
+            windowWidth = baseWidth;
+            windowHeight = baseWidth / aspectRatio;
+          } else {
+            // Portrait
+            windowHeight = baseHeight;
+            windowWidth = baseHeight * aspectRatio;
+          }
+
+          // Set window size
+          viewer.style.width = `${windowWidth}px`;
+          viewer.style.height = `${windowHeight}px`;
+
+          viewer.style.display = 'block';
+          addTask(viewer);
+          focusWindow(viewer);
+          offsetWindowPosition(viewer);
+        };
+        tempImg.src = imgSrc;
+      });
+    });
+
+    document.querySelectorAll('[data-close]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const win = e.target.closest('.window');
+        win.style.display = 'none';
+        const task = document.querySelector(`.task[data-win="${win.id}"]`);
+        if (task) task.remove();
+      });
+    });
+
+    document.querySelectorAll('.title-bar').forEach(bar => {
+      const win = bar.parentElement;
+      let offsetX = 0, offsetY = 0, dragging = false;
+
+      bar.addEventListener('mousedown', e => {
+        dragging = true;
+        offsetX = e.clientX - win.offsetLeft;
+        offsetY = e.clientY - win.offsetTop;
+        focusWindow(win);
+      });
+
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        win.style.left = `${e.clientX - offsetX}px`;
+        win.style.top = `${e.clientY - offsetY}px`;
+      });
+
+      document.addEventListener('mouseup', () => dragging = false);
+    });
+
+    // ===== Project Folder Selection =====
+    document.querySelectorAll('.project-folder').forEach(folder => {
+      folder.addEventListener('click', () => {
+        // Remove active from all folders
+        document.querySelectorAll('.project-folder').forEach(f => f.classList.remove('active'));
+        // Add active to clicked folder
+        folder.classList.add('active');
+
+        // Hide all project details
+        document.querySelectorAll('.project-detail').forEach(detail => {
+          detail.style.display = 'none';
+        });
+
+        // Show selected project detail
+        const projectId = folder.dataset.project;
+        const detail = document.getElementById(`project-${projectId}`);
+        if (detail) {
+          detail.style.display = 'block';
+        }
+      });
+    });
+
+    // ===== Resume Viewer Functions =====
+    function downloadResume() {
+      const link = document.createElement('a');
+      link.href = 'hannah_estes_resume.pdf';
+      link.download = 'hannah_estes_resume.pdf';
+      link.click();
+    }
+  </script>
 </body>
-
 </html>
