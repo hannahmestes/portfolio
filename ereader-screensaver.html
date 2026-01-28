@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Reader Screensaver Helper</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .upload-panel {
+            flex: 1;
+            min-width: 300px;
+        }
+        .preview-panel {
+            flex: 1;
+            min-width: 300px;
+        }
+        .controls {
+            margin: 15px 0;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="file"]:hover {
+            border-color: #999;
+        }
+        .canvas-container {
+            position: relative;
+            margin: 15px 0;
+            display: inline-block;
+        }
+        #editorCanvas {
+            border: 2px solid #333;
+            max-width: 100%;
+            cursor: crosshair;
+        }
+        .preview-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .preview-box {
+            text-align: center;
+        }
+        .preview-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        #previewGrayscale {
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #555;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .info {
+            font-size: 12px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .dimensions {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>E-Reader Screensaver Helper</h1>
+    <p style="text-align: center; color: #666;">Generates 480x800px BMP format for e-ink displays (like xteink x4)</p>
+
+    <div class="container">
+        <div class="panel upload-panel">
+            <h2>1. Upload Image</h2>
+            <input type="file" id="fileInput" accept="image/*">
+
+            <div class="info">
+                <p>Instructions:</p>
+                <ul>
+                    <li>Upload an image from your computer</li>
+                    <li>Click and drag horizontally to select a crop area</li>
+                    <li>The selection maintains 480x800 (3:5) aspect ratio</li>
+                </ul>
+            </div>
+
+            <div class="canvas-container" id="editorContainer" style="display: none;">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="dimensions" id="selectionInfo">No selection</div>
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="resetBtn">Reset Selection</button>
+                <button class="btn" id="cropBtn" disabled>Crop & Generate</button>
+            </div>
+        </div>
+
+        <div class="panel preview-panel">
+            <h2>2. Preview</h2>
+
+            <div class="preview-container">
+                <div class="preview-box">
+                    <h3>E-ink Preview</h3>
+                    <canvas id="previewGrayscale" width="240" height="400"></canvas>
+                </div>
+            </div>
+
+            <div class="info" style="text-align: center; margin-top: 20px;">
+                <p>Preview is scaled down. Actual output will be 480x800px.</p>
+            </div>
+
+            <div class="controls">
+                <button class="btn" id="downloadBtn" disabled>Download BMP (480x800)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const editorCanvas = document.getElementById('editorCanvas');
+        const editorCtx = editorCanvas.getContext('2d');
+        const previewGrayscale = document.getElementById('previewGrayscale');
+        const previewGrayscaleCtx = previewGrayscale.getContext('2d');
+        const cropBtn = document.getElementById('cropBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const selectionInfo = document.getElementById('selectionInfo');
+        const editorContainer = document.getElementById('editorContainer');
+
+        const TARGET_WIDTH = 480;
+        const TARGET_HEIGHT = 800;
+        const PREVIEW_WIDTH = 240;
+        const PREVIEW_HEIGHT = 400;
+
+        let originalImage = null;
+        let isDragging = false;
+        let startX, startY;
+        let selection = null;
+        let generatedCanvas = null;
+        let canvasScale = 1;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    displayImage();
+                };
+                originalImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function displayImage() {
+            const maxWidth = 500;
+            canvasScale = Math.min(1, maxWidth / originalImage.width);
+
+            editorCanvas.width = originalImage.width * canvasScale;
+            editorCanvas.height = originalImage.height * canvasScale;
+
+            editorCtx.drawImage(originalImage, 0, 0, editorCanvas.width, editorCanvas.height);
+
+            editorContainer.style.display = 'inline-block';
+            selection = null;
+            selectionInfo.textContent = 'Click and drag to select crop area';
+            cropBtn.disabled = true;
+            downloadBtn.disabled = true;
+
+            clearPreviews();
+        }
+
+        function clearPreviews() {
+            previewGrayscaleCtx.fillStyle = '#fff';
+            previewGrayscaleCtx.fillRect(0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+        }
+
+        editorCanvas.addEventListener('mousedown', (e) => {
+            const rect = editorCanvas.getBoundingClientRect();
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
+            isDragging = true;
+            selection = null;
+        });
+
+        editorCanvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const rect = editorCanvas.getBoundingClientRect();
+            const currentX = e.clientX - rect.left;
+
+            let width = Math.abs(currentX - startX);
+            let height = width * (800 / 480);
+
+            let x = Math.min(startX, currentX);
+            let y = startY - (currentX < startX ? height : 0);
+
+            redrawEditor();
+
+            editorCtx.strokeStyle = '#fff';
+            editorCtx.lineWidth = 2;
+            editorCtx.setLineDash([5, 5]);
+            editorCtx.strokeRect(x, y, width, height);
+            editorCtx.setLineDash([]);
+
+            const actualWidth = Math.round(width / canvasScale);
+            const actualHeight = Math.round(height / canvasScale);
+            selectionInfo.textContent = `Selection: ${actualWidth}x${actualHeight}px`;
+        });
+
+        editorCanvas.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const rect = editorCanvas.getBoundingClientRect();
+            const endX = e.clientX - rect.left;
+
+            let width = Math.abs(endX - startX);
+            let height = width * (800 / 480);
+            let x = Math.min(startX, endX);
+            let y = startY - (endX < startX ? height : 0);
+
+            if (width < 10 || height < 10) {
+                selection = null;
+                cropBtn.disabled = true;
+                redrawEditor();
+                return;
+            }
+
+            selection = {
+                x: x / canvasScale,
+                y: y / canvasScale,
+                width: width / canvasScale,
+                height: height / canvasScale
+            };
+
+            redrawEditor();
+            cropBtn.disabled = false;
+        });
+
+        function redrawEditor() {
+            editorCtx.drawImage(originalImage, 0, 0, editorCanvas.width, editorCanvas.height);
+
+            if (selection) {
+                editorCtx.strokeStyle = '#0f0';
+                editorCtx.lineWidth = 2;
+                editorCtx.strokeRect(
+                    selection.x * canvasScale,
+                    selection.y * canvasScale,
+                    selection.width * canvasScale,
+                    selection.height * canvasScale
+                );
+            }
+        }
+
+        resetBtn.addEventListener('click', () => {
+            selection = null;
+            cropBtn.disabled = true;
+            displayImage();
+        });
+
+        cropBtn.addEventListener('click', () => {
+            if (!selection) return;
+
+            generatedCanvas = document.createElement('canvas');
+            generatedCanvas.width = TARGET_WIDTH;
+            generatedCanvas.height = TARGET_HEIGHT;
+            const ctx = generatedCanvas.getContext('2d');
+
+            ctx.drawImage(
+                originalImage,
+                selection.x, selection.y, selection.width, selection.height,
+                0, 0, TARGET_WIDTH, TARGET_HEIGHT
+            );
+
+            updatePreviews();
+            downloadBtn.disabled = false;
+        });
+
+        function updatePreviews() {
+            // Create grayscale version
+            const grayCanvas = document.createElement('canvas');
+            grayCanvas.width = TARGET_WIDTH;
+            grayCanvas.height = TARGET_HEIGHT;
+            const grayCtx = grayCanvas.getContext('2d');
+
+            const imageData = generatedCanvas.getContext('2d').getImageData(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+            const grayData = toGrayscale(imageData);
+            grayCtx.putImageData(grayData, 0, 0);
+
+            // Scale down for preview
+            previewGrayscaleCtx.drawImage(grayCanvas, 0, 0, TARGET_WIDTH, TARGET_HEIGHT, 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT);
+        }
+
+        function toGrayscale(imageData) {
+            const data = new Uint8ClampedArray(imageData.data);
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
+                data[i] = gray;
+                data[i + 1] = gray;
+                data[i + 2] = gray;
+            }
+            return new ImageData(data, imageData.width, imageData.height);
+        }
+
+        downloadBtn.addEventListener('click', () => {
+            if (!generatedCanvas) return;
+
+            const bmpData = createBMP(generatedCanvas);
+            const blob = new Blob([bmpData], { type: 'image/bmp' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'screensaver_480x800.bmp';
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
+
+        function createBMP(canvas) {
+            const width = canvas.width;
+            const height = canvas.height;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, width, height);
+
+            // BMP requires each row to be padded to a multiple of 4 bytes
+            // For 24-bit (3 bytes per pixel), rowSize must be multiple of 4
+            const bytesPerPixel = 3;
+            const rowSize = Math.floor((bytesPerPixel * width + 3) / 4) * 4;
+            const pixelDataSize = rowSize * height;
+            const fileSize = 54 + pixelDataSize;
+
+            const buffer = new ArrayBuffer(fileSize);
+            const view = new DataView(buffer);
+            const bytes = new Uint8Array(buffer);
+
+            // BMP File Header (14 bytes)
+            bytes[0] = 0x42; // 'B'
+            bytes[1] = 0x4D; // 'M'
+            view.setUint32(2, fileSize, true); // File size
+            view.setUint16(6, 0, true); // Reserved
+            view.setUint16(8, 0, true); // Reserved
+            view.setUint32(10, 54, true); // Offset to pixel data
+
+            // DIB Header (BITMAPINFOHEADER - 40 bytes)
+            view.setUint32(14, 40, true); // Header size
+            view.setInt32(18, width, true); // Width
+            view.setInt32(22, height, true); // Height (positive = bottom-up)
+            view.setUint16(26, 1, true); // Planes
+            view.setUint16(28, 24, true); // Bits per pixel
+            view.setUint32(30, 0, true); // Compression (0 = none)
+            view.setUint32(34, pixelDataSize, true); // Image size
+            view.setInt32(38, 2835, true); // X pixels per meter (72 DPI)
+            view.setInt32(42, 2835, true); // Y pixels per meter (72 DPI)
+            view.setUint32(46, 0, true); // Colors used
+            view.setUint32(50, 0, true); // Important colors
+
+            // Pixel data (BGR format, bottom-up)
+            const data = imageData.data;
+            let offset = 54;
+
+            for (let y = height - 1; y >= 0; y--) {
+                for (let x = 0; x < width; x++) {
+                    const srcIdx = (y * width + x) * 4;
+
+                    bytes[offset++] = data[srcIdx + 2]; // B
+                    bytes[offset++] = data[srcIdx + 1]; // G
+                    bytes[offset++] = data[srcIdx];     // R
+                }
+                // Add padding for row alignment
+                while (offset % 4 !== 54 % 4) {
+                    bytes[offset++] = 0;
+                }
+            }
+
+            return buffer;
+        }
+    </script>
+</body>
+</html>
