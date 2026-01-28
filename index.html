@@ -467,6 +467,10 @@
       box-shadow: inset 1px 1px var(--border-light), inset -1px -1px var(--border-mid);
       font-size: 11px;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
     }
 
     .task:hover {
@@ -1582,6 +1586,15 @@
       win.style.zIndex = zCounter;
     }
 
+    // Add click handler to windows so tapping inactive windows brings them to focus
+    document.querySelectorAll('.window').forEach(win => {
+      win.addEventListener('click', (e) => {
+        // Don't focus if clicking on controls or interactive elements
+        if (e.target.closest('.controls, .tool-btn, button, a, input, .tarot-card')) return;
+        focusWindow(win);
+      });
+    });
+
     function addTask(win) {
       if (document.querySelector(`.task[data-win="${win.id}"]`)) return;
       const task = document.createElement('div');
@@ -1703,6 +1716,12 @@
           if (task) task.remove();
           // Remove from open viewers tracker
           delete openImageViewers[imgSrc];
+        });
+
+        // Attach click handler for focusing on mobile
+        viewer.addEventListener('click', (e) => {
+          if (e.target.closest('.controls, .tool-btn, button, a')) return;
+          focusWindow(viewer);
         });
 
         // Attach drag handler to title bar
