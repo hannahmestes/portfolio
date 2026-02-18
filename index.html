@@ -2056,6 +2056,230 @@
         focusWindow(windowToOpen);
       }
     });
+
+    // ================================
+    // RECYCLE BIN FEATURE
+    // ================================
+
+    const recycleBin = {
+      cards: [],
+      addToBin: function(cardId) {
+        if (!this.cards.includes(cardId)) {
+          this.cards.push(cardId);
+          this.updateCount();
+          this.saveState();
+        }
+      },
+      removeFromBin: function(cardId) {
+        const index = this.cards.indexOf(cardId);
+        if (index > -1) {
+          this.cards.splice(index, 1);
+          this.updateCount();
+          this.saveState();
+          return true;
+        }
+        return false;
+      },
+      restoreCard: function(cardId) {
+        return this.removeFromBin(cardId);
+      },
+      emptyBin: function() {
+        this.cards = [];
+        this.updateCount();
+        this.saveState();
+      },
+      getCount: function() {
+        return this.cards.length;
+      },
+      isInBin: function(cardId) {
+        return this.cards.includes(cardId);
+      },
+      updateCount: function() {
+        const countEl = document.getElementById('bin-count');
+        if (countEl) {
+          countEl.textContent = this.getCount();
+        }
+      },
+      saveState: function() {
+        localStorage.setItem('recycleBin', JSON.stringify(this.cards));
+      },
+      loadState: function() {
+        const saved = localStorage.getItem('recycleBin');
+        if (saved) {
+          this.cards = JSON.parse(saved);
+          this.updateCount();
+        }
+      }
+    };
+
+    // Add recycle bin counter badge
+    function addRecycleCounter() {
+      const recycleIcon = document.querySelector('.icon[data-window="recycle"]');
+      if (recycleIcon && !document.getElementById('bin-count')) {
+        const countBadge = document.createElement('span');
+        countBadge.id = 'bin-count';
+        countBadge.style.cssText = `
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: #c0c0c0;
+          color: #ffffff;
+          border: 1px solid #808080;
+          border-radius: 50%;
+          padding: 0 4px;
+          font-size: 10px;
+          font-weight: bold;
+          min-width: 16px;
+          text-align: center;
+          z-index: 1000;
+        `;
+        countBadge.textContent = '0';
+        recycleIcon.style.position = 'relative';
+        recycleIcon.appendChild(countBadge);
+        recycleBin.loadState();
+      }
+    }
+
+    // Add right-click context menu to cards
+    function addCardContextMenu() {
+      document.querySelectorAll('.tarot-card').forEach(card => {
+        card.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+
+          const cardId = card.dataset.card;
+          const isInBin = recycleBin.isInBin(cardId);
+
+          const menu = document.createElement('div');
+          menu.className = 'context-menu';
+          menu.style.cssText = `
+            position: fixed;
+            left: ${e.clientX}px;
+            top: ${e.clientY}px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 10000;
+            padding: 2px;
+            font-family: 'MS Sans Serif', Tahoma, sans-serif;
+            font-size: 12px;
+            min-width: 150px;
+          `;
+
+          if (isInBin) {
+            menu.innerHTML = `
+              <div class="menu-item" data-action="restore" style="cursor:pointer; padding:4px 8px; display:flex; align-items:center; gap:8px;">
+                <span>🔄 Restore to Deck</span>
+              </div>
+              <div class="menu-item" data-action="empty" style="cursor:pointer; padding:4px 8px; display:flex; align-items:center; gap:8px;">
+                <span>🗑️ Empty Bin</span>
+              </div>
+            `;
+          } else {
+            menu.innerHTML = `
+              <div class="menu-item" data-action="trash" style="cursor:pointer; padding:4px 8px; display:flex; align-items:center; gap:8px;">
+                <span>🗑️ Move to Recycle Bin</span>
+              </div>
+            `;
+          }
+
+          document.body.appendChild(menu);
+
+          // Add hover effect to menu items
+          menu.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+              this.style.background = '#000080';
+              this.style.color = '#ffffff';
+            });
+            item.addEventListener('mouseleave', function() {
+              this.style.background = '#c0c0c0';
+              this.style.color = '#000000';
+            });
+          });
+
+          // Handle menu item clicks
+          const menuClickHandler = function(e) {
+            const action = e.target.closest('[data-action]')?.dataset.action;
+            if (action === 'trash') {
+              recycleBin.addToBin(cardId);
+              applyCardInBinState(card);
+            } else if (action === 'restore') {
+              if (recycleBin.restoreCard(cardId)) {
+                applyCardNormalState(cardId);
+              }
+            } else if (action === 'empty') {
+              recycleBin.emptyBin();
+              document.querySelectorAll('.tarot-card').forEach(c => {
+                if (recycleBin.isInBin(c.dataset.card)) {
+                  applyCardNormalState(c);
+                }
+              });
+            }
+            closeContextMenu();
+          };
+
+          menu.addEventListener('click', menuClickHandler);
+
+          // Close menu when clicking elsewhere
+          const closeHandler = function(e) {
+            if (!menu.contains(e.target)) {
+              closeContextMenu();
+            }
+          };
+
+          setTimeout(() => {
+            document.addEventListener('click', closeHandler);
+          }, 10);
+        });
+      });
+    }
+
+    function closeContextMenu() {
+      document.querySelectorAll('.context-menu').forEach(m => m.remove());
+    }
+
+    function applyCardInBinState(cardId) {
+      const card = document.querySelector(`.tarot-card[data-card="${cardId}"]`);
+      if (card) {
+        card.style.transition = 'all 0.3s ease-out';
+        card.style.opacity = '0.5';
+        card.style.filter = 'grayscale(100%)';
+        card.style.transform = 'scale(0.8) rotate(-5deg)';
+
+        setTimeout(() => {
+          card.style.opacity = '0.4';
+        }, 300);
+      }
+    }
+
+    function applyCardNormalState(cardId) {
+      const card = document.querySelector(`.tarot-card[data-card="${cardId}"]`);
+      if (card) {
+        card.style.transition = 'all 0.5s ease-out';
+        card.style.opacity = '1';
+        card.style.filter = 'none';
+        card.style.transform = 'scale(1)';
+
+        // Add brief glow effect
+        card.style.boxShadow = '0 0 16px 8px rgba(201, 168, 108, 0.4)';
+
+        setTimeout(() => {
+          card.style.boxShadow = '';
+        }, 500);
+      }
+    }
+
+    // Initialize recycle bin feature on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      addRecycleCounter();
+      addCardContextMenu();
+
+      // Apply saved states
+      recycleBin.cards.forEach(cardId => {
+        applyCardInBinState(cardId);
+      });
+    });
+
   </script>
 </body>
 </html>
