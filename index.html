@@ -1021,7 +1021,22 @@
         overflow-x: auto;
       }
     }
-  </style>
+  
+/* Lazy Loading Styles */
+img.lazy-image {
+  background-color: #2a2a2a;
+  transition: opacity 0.3s ease-in-out;
+}
+
+img.lazy-image[src] {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
 </head>
 <body>
 
@@ -1547,91 +1562,91 @@
         <!-- Gallery: Add new items at the TOP of this list -->
         <div class="gallery-grid">
           <div class="gallery-item" data-img="assets/images/quail_run_east.jpeg" data-title="quail_run_east.jpeg">
-            <img src="assets/images/quail_run_east.jpeg" alt="Quail Run East" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/quail_run_east.jpeg" alt="Quail Run East" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">quail_run_east.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/quail_run_west.jpeg" data-title="quail_run_west.jpeg">
-            <img src="assets/images/quail_run_west.jpeg" alt="Quail Run West" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/quail_run_west.jpeg" alt="Quail Run West" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">quail_run_west.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/rainbow_grid.jpeg" data-title="rainbow_grid.jpeg">
-            <img src="assets/images/rainbow_grid.jpeg" alt="Rainbow Grid" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/rainbow_grid.jpeg" alt="Rainbow Grid" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">rainbow_grid.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/elephant.jpeg" data-title="elephant.jpeg">
-            <img src="assets/images/elephant.jpeg" alt="Elephant" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/elephant.jpeg" alt="Elephant" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">elephant.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/stag.jpeg" data-title="stag.jpeg">
-            <img src="assets/images/stag.jpeg" alt="Stag" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/stag.jpeg" alt="Stag" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">stag.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/swirl_interrupted_1.jpeg" data-title="swirl_interrupted_1.jpeg">
-            <img src="assets/images/swirl_interrupted_1.jpeg" alt="Swirl Interrupted 1" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/swirl_interrupted_1.jpeg" alt="Swirl Interrupted 1" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">swirl_interrupted_1.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/swirl_interrupted_2.jpeg" data-title="swirl_interrupted_2.jpeg">
-            <img src="assets/images/swirl_interrupted_2.jpeg" alt="Swirl Interrupted 2" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/swirl_interrupted_2.jpeg" alt="Swirl Interrupted 2" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">swirl_interrupted_2.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/bubble_tricorn.jpeg" data-title="bubble_tricorn.jpeg">
-            <img src="assets/images/bubble_tricorn.jpeg" alt="Bubble Tricorn" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/bubble_tricorn.jpeg" alt="Bubble Tricorn" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">bubble_tricorn.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/cobalt_bubbles_canister.jpeg" data-title="cobalt_bubbles_canister.jpeg">
-            <img src="assets/images/cobalt_bubbles_canister.jpeg" alt="Cobalt Bubbles Canister" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/cobalt_bubbles_canister.jpeg" alt="Cobalt Bubbles Canister" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">cobalt_bubbles_canister.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/bubble_study.jpeg" data-title="bubble_study.jpeg">
-            <img src="assets/images/bubble_study.jpeg" alt="Bubble Study" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/bubble_study.jpeg" alt="Bubble Study" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">bubble_study.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/eternity.jpeg" data-title="eternity.jpeg">
-            <img src="assets/images/eternity.jpeg" alt="Eternity" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/eternity.jpeg" alt="Eternity" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">eternity.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/marigold.jpeg" data-title="marigold.jpeg">
-            <img src="assets/images/marigold.jpeg" alt="Marigold" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/marigold.jpeg" alt="Marigold" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">marigold.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/dune-plate.jpeg" data-title="dune_plate.jpeg">
-            <img src="assets/images/dune-plate.jpeg" alt="Dune Plate" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/dune-plate.jpeg" alt="Dune Plate" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">dune_plate.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/berry-diamonds.jpeg" data-title="berry_diamonds.jpeg">
-            <img src="assets/images/berry-diamonds.jpeg" alt="Berry Diamonds" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/berry-diamonds.jpeg" alt="Berry Diamonds" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">berry_diamonds.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/lemon-slice.jpeg" data-title="lemon_slice.jpeg">
-            <img src="assets/images/lemon-slice.jpeg" alt="Lemon Slice" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/lemon-slice.jpeg" alt="Lemon Slice" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">lemon_slice.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/bubble-grid.jpeg" data-title="bubble_grid.jpeg">
-            <img src="assets/images/bubble-grid.jpeg" alt="Bubble Grid" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/bubble-grid.jpeg" alt="Bubble Grid" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">bubble_grid.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/stir-my-heart.jpeg" data-title="stir_my_heart.jpeg">
-            <img src="assets/images/stir-my-heart.jpeg" alt="Stir My Heart" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/stir-my-heart.jpeg" alt="Stir My Heart" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">stir_my_heart.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/emerald-tile.jpeg" data-title="emerald_tile.jpeg">
-            <img src="assets/images/emerald-tile.jpeg" alt="Emerald Tile" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/emerald-tile.jpeg" alt="Emerald Tile" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">emerald_tile.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/rainbow-swirl.jpeg" data-title="rainbow_swirl.jpeg">
-            <img src="assets/images/rainbow-swirl.jpeg" alt="Rainbow Swirl" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/rainbow-swirl.jpeg" alt="Rainbow Swirl" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">rainbow_swirl.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/rainbow-warp.jpeg" data-title="rainbow_warp.jpeg">
-            <img src="assets/images/rainbow-warp.jpeg" alt="Rainbow Warp" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/rainbow-warp.jpeg" alt="Rainbow Warp" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">rainbow_warp.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/sonoran-scene.jpeg" data-title="sonoran_scene.jpeg">
-            <img src="assets/images/sonoran-scene.jpeg" alt="Sonoran Scene" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/sonoran-scene.jpeg" alt="Sonoran Scene" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">sonoran_scene.jpeg</div>
           </div>
           <div class="gallery-item" data-img="assets/images/jewel-bricks.jpeg" data-title="jewel_bricks.jpeg">
-            <img src="assets/images/jewel-bricks.jpeg" alt="Jewel Bricks" />
+            <img src="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E" data-src="assets/images/jewel-bricks.jpeg" alt="Jewel Bricks" loading="lazy" class="lazy-image" />
             <div class="gallery-caption">jewel_bricks.jpeg</div>
           </div>
         </div>
@@ -2085,5 +2100,41 @@
       }
     });
   </script>
+
+<!-- Lazy Loading Script -->
+<script>
+  // Intersection Observer for lazy loading (fallback for browsers that don't support loading="lazy")
+  document.addEventListener('DOMContentLoaded', function() {
+    const lazyImages = document.querySelectorAll('img.lazy-image');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute('data-src');
+            if (src) {
+              img.src = src;
+              img.classList.remove('lazy-image');
+              observer.unobserve(img);
+            }
+          }
+        });
+      });
+
+      lazyImages.forEach(img => observer.observe(img));
+    } else {
+      // Fallback: load all images immediately for older browsers
+      lazyImages.forEach(img => {
+        const src = img.getAttribute('data-src');
+        if (src) {
+          img.src = src;
+          img.classList.remove('lazy-image');
+        }
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
