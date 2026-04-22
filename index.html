@@ -19,6 +19,29 @@
   <meta name="twitter:title" content="Hannah Estes – AI Systems Engineer" />
   <meta name="twitter:description" content="AI Systems Engineer specializing in XR, VR/AR, mobile apps, and agentic AI." />
   <meta name="twitter:image" content="https://hannahestes.dev/assets/images/linkedin.png" />
+
+  <!-- Accessibility: Skip Navigation Link -->
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #7a6890;
+      color: white;
+      padding: 8px 16px;
+      z-index: 100000;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: "MS Sans Serif", Tahoma, system-ui, sans-serif;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: 3px solid #c9a86c;
+      outline-offset: 2px;
+    }
+  </style>
+  <a href="#desktop" class="skip-link">Skip to main content</a>
+
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicons/favicon-48x48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.png">
@@ -44,6 +67,16 @@
 
     * { box-sizing: border-box; user-select: none; }
 
+    /* Accessibility: Visible Focus Indicators */
+    :focus-visible {
+      outline: 3px solid #c9a86c;
+      outline-offset: 2px;
+    }
+    a:focus, button:focus, [tabindex]:focus {
+      outline: 3px solid #c9a86c;
+      outline-offset: 2px;
+    }
+
     html, body {
       width: 100%;
       height: 100%;
@@ -53,68 +86,70 @@
       overflow: hidden;
     }
 
-    /* ===== Floating Stars Animation ===== */
-    #desktop::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 40px 70px, rgba(201,168,108,0.15), transparent),
-        radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 130px 80px, rgba(201,168,108,0.12), transparent),
-        radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 200px 50px, rgba(201,168,108,0.15), transparent),
-        radial-gradient(1px 1px at 250px 160px, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 300px 90px, rgba(201,168,108,0.12), transparent),
-        radial-gradient(1px 1px at 350px 140px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 400px 60px, rgba(201,168,108,0.15), transparent),
-        radial-gradient(1px 1px at 450px 180px, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 500px 100px, rgba(201,168,108,0.12), transparent),
-        radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 180px 200px, rgba(201,168,108,0.15), transparent),
-        radial-gradient(1px 1px at 280px 30px, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 380px 170px, rgba(201,168,108,0.12), transparent),
-        radial-gradient(1px 1px at 480px 90px, rgba(255,255,255,0.2), transparent);
-      background-size: 550px 250px;
-      animation: twinkle 6s ease-in-out infinite;
-      z-index: 0;
-    }
+    /* ===== Floating Stars Animation (respects prefers-reduced-motion) ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      #desktop::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
+          radial-gradient(2px 2px at 40px 70px, rgba(201,168,108,0.15), transparent),
+          radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.25), transparent),
+          radial-gradient(2px 2px at 130px 80px, rgba(201,168,108,0.12), transparent),
+          radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.2), transparent),
+          radial-gradient(2px 2px at 200px 50px, rgba(201,168,108,0.15), transparent),
+          radial-gradient(1px 1px at 250px 160px, rgba(255,255,255,0.25), transparent),
+          radial-gradient(2px 2px at 300px 90px, rgba(201,168,108,0.12), transparent),
+          radial-gradient(1px 1px at 350px 140px, rgba(255,255,255,0.2), transparent),
+          radial-gradient(2px 2px at 400px 60px, rgba(201,168,108,0.15), transparent),
+          radial-gradient(1px 1px at 450px 180px, rgba(255,255,255,0.25), transparent),
+          radial-gradient(2px 2px at 500px 100px, rgba(201,168,108,0.12), transparent),
+          radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.2), transparent),
+          radial-gradient(2px 2px at 180px 200px, rgba(201,168,108,0.15), transparent),
+          radial-gradient(1px 1px at 280px 30px, rgba(255,255,255,0.25), transparent),
+          radial-gradient(2px 2px at 380px 170px, rgba(201,168,108,0.12), transparent),
+          radial-gradient(1px 1px at 480px 90px, rgba(255,255,255,0.2), transparent);
+        background-size: 550px 250px;
+        animation: twinkle 6s ease-in-out infinite;
+        z-index: 0;
+      }
 
-    #desktop::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(1px 1px at 100px 100px, rgba(255,255,255,0.15), transparent),
-        radial-gradient(2px 2px at 220px 60px, rgba(201,168,108,0.18), transparent),
-        radial-gradient(1px 1px at 340px 190px, rgba(255,255,255,0.15), transparent),
-        radial-gradient(2px 2px at 460px 40px, rgba(201,168,108,0.2), transparent),
-        radial-gradient(1px 1px at 140px 220px, rgba(255,255,255,0.15), transparent),
-        radial-gradient(2px 2px at 320px 130px, rgba(201,168,108,0.18), transparent),
-        radial-gradient(1px 1px at 500px 200px, rgba(255,255,255,0.15), transparent),
-        radial-gradient(2px 2px at 80px 180px, rgba(201,168,108,0.2), transparent);
-      background-size: 550px 250px;
-      animation: twinkle2 7s ease-in-out infinite;
-      z-index: 0;
-    }
+      #desktop::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(1px 1px at 100px 100px, rgba(255,255,255,0.15), transparent),
+          radial-gradient(2px 2px at 220px 60px, rgba(201,168,108,0.18), transparent),
+          radial-gradient(1px 1px at 340px 190px, rgba(255,255,255,0.15), transparent),
+          radial-gradient(2px 2px at 460px 40px, rgba(201,168,108,0.2), transparent),
+          radial-gradient(1px 1px at 140px 220px, rgba(255,255,255,0.15), transparent),
+          radial-gradient(2px 2px at 320px 130px, rgba(201,168,108,0.18), transparent),
+          radial-gradient(1px 1px at 500px 200px, rgba(255,255,255,0.15), transparent),
+          radial-gradient(2px 2px at 80px 180px, rgba(201,168,108,0.2), transparent);
+        background-size: 550px 250px;
+        animation: twinkle2 7s ease-in-out infinite;
+        z-index: 0;
+      }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.35; }
-      50% { opacity: 0.45; }
-    }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 0.45; }
+      }
 
-    @keyframes twinkle2 {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.5; }
+      @keyframes twinkle2 {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.5; }
+      }
     }
 
     /* ===== Print Styles ===== */
@@ -674,9 +709,17 @@
       padding: 12px;
       overflow-y: auto;
       font-size: 10px;
-      color: #1f1a35;
+      color: #000000;
       line-height: 1.4;
       border-radius: 4px;
+    }
+    .tarot-card-back h4 {
+      margin: 0 0 8px 0;
+      font-size: 11px;
+      color: #000000;
+      text-align: center;
+      border-bottom: 1px solid #b8a8c8;
+      padding-bottom: 4px;
     }
 
     .tarot-card-back::-webkit-scrollbar {
@@ -782,8 +825,10 @@
       }
 
       .controls button {
-        width: 32px;
-        height: 32px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
         padding: 0;
         display: flex;
         align-items: center;
@@ -1067,7 +1112,7 @@ img.lazy-image[src] {
     </div>
 
     <div class="icon" data-window="linkedin">
-      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='4' width='56' height='56' rx='8' fill='%236b5b95' stroke='%23000' stroke-width='2'/><text x='32' y='44' font-family='Arial' font-size='32' font-weight='bold' fill='%23fff' text-anchor='middle'>in</text></svg>" />
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect x='4' y='4' width='56' height='56' rx='8' fill='%236b5b95' stroke='%23000' stroke-width='2'/><text x='32' y='44' font-family='Arial' font-size='32' font-weight='bold' fill='%23fff' text-anchor='middle'>in</text></svg>" role="presentation" alt="" />
       <span>LinkedIn</span>
     </div>
 
@@ -1085,7 +1130,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="readme" data-title="README.txt">
       <div class="title-bar">
         <div class="title">README.txt - Notepad</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close README window">x</button></div>
       </div>
       <div class="window-content" style="background:#fff; padding:8px; font-family:'Courier New', monospace; font-size:12px; color:#000;">
         <p style="margin:0 0 8px 0;">═══════════════════════════════════════════════════════</p>
@@ -1127,7 +1172,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="about" data-title="The Tarot Deck">
       <div class="title-bar">
         <div class="title">The Tarot Deck</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Tarot Deck window">x</button></div>
       </div>
       <div class="window-content" style="padding:4px;">
         <div class="card-game-table">
@@ -1136,7 +1181,7 @@ img.lazy-image[src] {
           </div>
           <div class="card-spread">
             <!-- The Seeker Card -->
-            <div class="tarot-card" data-card="seeker">
+            <div class="tarot-card" data-card="seeker" role="button" tabindex="0" aria-pressed="false" aria-label="The Seeker tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/seeker.png" alt="The Seeker" />
@@ -1151,7 +1196,7 @@ img.lazy-image[src] {
             </div>
 
             <!-- The Professional Card -->
-            <div class="tarot-card" data-card="professional">
+            <div class="tarot-card" data-card="professional" role="button" tabindex="0" aria-pressed="false" aria-label="The Professional tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/professional.png" alt="The Professional" />
@@ -1175,7 +1220,7 @@ img.lazy-image[src] {
             </div>
 
             <!-- The Developer Card -->
-            <div class="tarot-card" data-card="developer">
+            <div class="tarot-card" data-card="developer" role="button" tabindex="0" aria-pressed="false" aria-label="The Developer tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/developer.png" alt="The Developer" />
@@ -1196,7 +1241,7 @@ img.lazy-image[src] {
             </div>
 
             <!-- The Champion Card -->
-            <div class="tarot-card" data-card="creator">
+            <div class="tarot-card" data-card="creator" role="button" tabindex="0" aria-pressed="false" aria-label="The Champion tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/champion.png" alt="The Champion" />
@@ -1218,7 +1263,7 @@ img.lazy-image[src] {
             </div>
 
             <!-- The Innovator Card -->
-            <div class="tarot-card" data-card="innovator">
+            <div class="tarot-card" data-card="innovator" role="button" tabindex="0" aria-pressed="false" aria-label="The Innovator tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/innovator.png" alt="The Innovator" />
@@ -1235,7 +1280,7 @@ img.lazy-image[src] {
             </div>
 
             <!-- The Student Card -->
-            <div class="tarot-card" data-card="student">
+            <div class="tarot-card" data-card="student" role="button" tabindex="0" aria-pressed="false" aria-label="The Student tarot card - click to reveal">
               <div class="tarot-card-inner">
                 <div class="tarot-card-front">
                   <img src="assets/images/tarot/student.png" alt="The Student" />
@@ -1261,7 +1306,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="contact" data-title="Contact">
       <div class="title-bar">
         <div class="title">Contact - Hannah Estes</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Contact window">x</button></div>
       </div>
       <div class="window-content">
         <!-- Address Book Card Style -->
@@ -1317,7 +1362,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="projects" data-title="Projects">
       <div class="title-bar">
         <div class="title">C:\Projects</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Projects window">x</button></div>
       </div>
       <div class="window-content" style="padding:4px;">
         <div class="explorer">
@@ -1530,7 +1575,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="resume" data-title="Resume">
       <div class="title-bar">
         <div class="title">hannah_estes_resume.pdf</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Resume window">x</button></div>
       </div>
       <div class="window-content" style="padding:4px;">
         <div class="pdf-toolbar">
@@ -1556,7 +1601,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="gallery" data-title="Glass Art Gallery">
       <div class="title-bar">
         <div class="title">C:\Art\Glass</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Gallery window">x</button></div>
       </div>
       <div class="window-content" style="padding:4px;">
         <!-- Gallery: Add new items at the TOP of this list -->
@@ -1657,7 +1702,7 @@ img.lazy-image[src] {
     <div class="window inactive" id="recycle" data-title="Recycle Bin">
       <div class="title-bar">
         <div class="title">C:\Recycle Bin</div>
-        <div class="controls"><button data-close>x</button></div>
+        <div class="controls"><button data-close aria-label="Close Recycle Bin window">x</button></div>
       </div>
       <div class="window-content" style="padding:4px;">
         <div class="explorer">
@@ -2045,11 +2090,31 @@ img.lazy-image[src] {
 
     // ===== Card Flip Sound =====
     document.querySelectorAll('.tarot-card').forEach(card => {
+      // Handle click
       card.addEventListener('click', () => {
         const flipSound = new Audio('assets/audio/Card-flip-sound-effect.mp3');
         flipSound.volume = 0.5;
         flipSound.play().catch(() => {});
         card.classList.toggle('flipped');
+        // Update ARIA state
+        const isFlipped = card.classList.contains('flipped');
+        card.setAttribute('aria-pressed', isFlipped);
+        card.setAttribute('aria-expanded', isFlipped);
+      });
+
+      // Handle keyboard (Enter and Space)
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const flipSound = new Audio('assets/audio/Card-flip-sound-effect.mp3');
+          flipSound.volume = 0.5;
+          flipSound.play().catch(() => {});
+          card.classList.toggle('flipped');
+          // Update ARIA state
+          const isFlipped = card.classList.contains('flipped');
+          card.setAttribute('aria-pressed', isFlipped);
+          card.setAttribute('aria-expanded', isFlipped);
+        }
       });
     });
 
