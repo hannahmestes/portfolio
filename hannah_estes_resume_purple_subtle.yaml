@@ -69,15 +69,22 @@ body:
 
   Work History:
     -
-      start: 2025
+      start: June 2026
       end: Current
+      title: Director of Engineering
+      company: EHMA Fintech
+      description: |
+        - Oversee software development across multiple products, including Door-to-Door Sales tools, D2C Sales tools, and Battery Management Systems
+        - Manage a team of 6 developers, balancing improvements to existing products with new launches
+    -
+      start: 2025
+      end: June 2026
       title: Mobile Developer
       company: EHMA Fintech
       description: |
         - Research and develop AI agent systems for direct-to-consumer solar sales applications
         - Build AI-powered sales agent leveraging natural language processing and machine learning
         - Integrate advanced AI capabilities into mobile fintech applications for enhanced customer engagement
-        - *Currently in early development phase building next-generation AI sales platform*
     -
       start: 2024
       end: 2025
